@@ -1,11 +1,12 @@
 from flask import Blueprint
+from flask import render_template 
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
 
 @admin.route('/')
 def adminhome():
-    return "This is the admin page"
+    return render_template('admin/home.html')
 
 
 @admin.route('/signin/')

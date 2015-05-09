@@ -1,0 +1,39 @@
+<html>
+
+	<head>
+		<title>PatAllen.me</title>
+		<link rel=stylesheet type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+	</head>
+	<body>
+		<nav class="navbar navbar-default navbar-static-top">
+			<div class="container">
+				<!-- Navbar header (brand) -->
+				<div class="navbar-header">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="{{ url_for('home') }}">PatAllen</a>
+					</div>
+				</div>
+				<!-- Navbar Buttons -->
+				<ul class="nav navbar-nav pull-right">
+					<li {% if request.path =='/' %}class="active"{% endif %}>
+						<a href="{{ url_for('home') }}">Home</a>
+					</li>
+					<li {% if request.path =='/blog' %}class="active"{% endif %}>
+						<a href="{{ url_for('blog.home') }}">Blog</a>
+					</li>
+					<li {% if request.path =='/work' %}class="active"{% endif %}>
+						<a href="{{ url_for('work.home') }}">Work</a>
+					</li>
+					<li {% if request.path =='' %}class="active"{% endif %}>
+						<a href="{{ url_for('home') }}">Contact</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<div class="container">
+			{% block content %}
+			{% endblock %}
+		</div>
+	</body>
+</html>

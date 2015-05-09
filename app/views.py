@@ -1,12 +1,9 @@
+from flask import render_template
 from app import app
 
 @app.route('/')
 def home():
-    return "This is the home page"
-
-@app.route("/work/")
-def portfolio():
-    return "This is the portoflio page"
+    return render_template('base.html')
 
 @app.route("/contact/")
 def contact():
