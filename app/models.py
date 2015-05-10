@@ -1,12 +1,14 @@
 from app import db
+from sqlalchemy import event
 from datetime import datetime
+from markdown import markdown
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nickname = db.Column(db.String(60), unique=True)
     first_name = db.Column(db.String(60), nullable=False)
     last_name = db.Column(db.String(60))
-    date_created = db.Column(db.DateTime)
+    date_created = db.Column(db.DateTime, default=db.func.now())
     location = db.Column(db.String(60))
     hometown = db.Column(db.String(60))
 
@@ -35,3 +37,10 @@ class Project(db.Model):
     project_url = db.Column(db.String())
     img_url = db.Column(db.String())
     date_completed = db.Column(db.Date)
+
+
+@event.listens_for(Post.body_md, 'set')
+def _generate_html(target, value, *unused):
+    print('event listed')
+    Post.body_html = markdown(value)
+
