@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-8">
+		<div class="post">
+			<div class="post-header">
+				<h3>{{ post.title }}</h3>
+			<span class="date pull-right">
+			{{ post.date_created.strftime('%B %d, %Y') }}
+			</span>
+			</div>
+			<div class="post-excerpt">
+				{{ post.body_html|safe }}	
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+
