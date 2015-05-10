@@ -1,7 +1,9 @@
-from app import db
 from sqlalchemy import event
 from datetime import datetime
 from markdown import markdown
+from app import helpers
+import re
+from app import db
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -12,9 +14,6 @@ class User(db.Model):
     location = db.Column(db.String(60))
     hometown = db.Column(db.String(60))
 
-    def __init__(self):
-        self.date_created = datetime.utcnow()
-
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,6 +21,7 @@ class Post(db.Model):
     title = db.Column(db.String(240), nullable=False)
     body_md  = db.Column(db.String(), nullable=False)
     body_html = db.Column(db.String())
+    excerpt = db.Column(db.String(300))
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
 
@@ -39,6 +39,5 @@ class Project(db.Model):
 
 @event.listens_for(Post.body_md, 'set')
 def _generate_html(target, value, *unused):
-    print('event listed')
-    Post.body_html = markdown(value)
-
+    target.body_html = markdown(value)
+    target.excerpt = helpers.getExcerpt(target.body_html, 240)
