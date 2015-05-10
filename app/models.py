@@ -22,10 +22,8 @@ class Post(db.Model):
     title = db.Column(db.String(240), nullable=False)
     body_md  = db.Column(db.String(), nullable=False)
     body_html = db.Column(db.String())
-    date_created = db.Column(db.DateTime)
-
-    def __init__(self):
-        self.date_created = datetime.utcnow()
+    date_created = db.Column(db.DateTime, default=db.func.now())
+    date_updated = db.Column(db.DateTime, onupdate=db.func.now())
 
 
 class Project(db.Model):
