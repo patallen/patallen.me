@@ -6,7 +6,7 @@
 		<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
 	</head>
 	<body>
-		<nav class="navbar navbar-default navbar-static-top">
+		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				<!-- Navbar header (brand) -->
 				<div class="navbar-header">
@@ -19,10 +19,10 @@
 					<li {% if request.path =='/' %}class="active"{% endif %}>
 						<a href="{{ url_for('home') }}">Home</a>
 					</li>
-					<li {% if request.path =='/blog/' %}class="active"{% endif %}>
+					<li {% if '/blog' in request.path %}class="active"{% endif %}>
 						<a href="{{ url_for('blog.home') }}">Blog</a>
 					</li>
-					<li {% if request.path =='/portfolio/' %}class="active"{% endif %}>
+					<li {% if '/portfolio' in request.path %}class="active"{% endif %}>
 						<a href="{{ url_for('portfolio.home') }}">Portfolio</a>
 					</li>
 					<li {% if request.path =='' %}class="active"{% endif %}>
