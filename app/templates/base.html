@@ -19,11 +19,11 @@
 					<li {% if request.path =='/' %}class="active"{% endif %}>
 						<a href="{{ url_for('home') }}">Home</a>
 					</li>
-					<li {% if request.path =='/blog' %}class="active"{% endif %}>
+					<li {% if request.path =='/blog/' %}class="active"{% endif %}>
 						<a href="{{ url_for('blog.home') }}">Blog</a>
 					</li>
-					<li {% if request.path =='/work' %}class="active"{% endif %}>
-						<a href="{{ url_for('work.home') }}">Work</a>
+					<li {% if request.path =='/portfolio/' %}class="active"{% endif %}>
+						<a href="{{ url_for('portfolio.home') }}">Portfolio</a>
 					</li>
 					<li {% if request.path =='' %}class="active"{% endif %}>
 						<a href="{{ url_for('home') }}">Contact</a>
