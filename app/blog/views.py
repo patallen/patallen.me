@@ -10,9 +10,9 @@ POSTS_PER_PAGE = 5
 
 
 def getPostsForPage(page, posts_per_page):
-    return Post.query.offset(posts_per_page * page - posts_per_page)\
-            .limit(posts_per_page)
-
+    return Post.query.order_by(Post.date_created.desc())\
+                     .offset(posts_per_page * page - posts_per_page)\
+                     .limit(posts_per_page)
 
 def getNumPosts():
     return Post.query.count()
@@ -23,7 +23,7 @@ def getNumPosts():
 def home(page=1):
     count = getNumPosts()
     posts = getPostsForPage(page, POSTS_PER_PAGE)
-    pagination = Pagination(page, 11, POSTS_PER_PAGE)
+    pagination = Pagination(page, count, POSTS_PER_PAGE)
     return render_template('blog/home.html', posts=posts, pagination=pagination)
 
 
