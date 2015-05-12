@@ -1,8 +1,12 @@
 from flask import Blueprint
 from flask import abort
+from flask import redirect 
+from flask import url_for 
 from flask import render_template
 from app.models import Post
 from app.helpers import Pagination
+from app import db
+from .forms import PostForm
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
 
@@ -34,3 +38,19 @@ def post(post_id):
     except:
         abort(404)
     return render_template('blog/post.html', post=post)
+
+
+@blog.route('/post/add', methods=['GET', 'POST'])
+def addPost():
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post()
+        post.author = 1
+        post.title = form.title.data
+        post.body_md = form.body.data
+        db.session.add(post)
+        db.session.commit()
+
+        return redirect(url_for('blog.post', post_id=post.id))
+
+    return render_template('blog/add.html', form=form)
