@@ -40,7 +40,7 @@ def post(post_id):
     return render_template('blog/post.html', post=post)
 
 
-@blog.route('/post/add', methods=['GET', 'POST'])
+@blog.route('/post/add/', methods=['GET', 'POST'])
 def addPost():
     form = PostForm()
     if form.validate_on_submit():
@@ -54,3 +54,20 @@ def addPost():
         return redirect(url_for('blog.post', post_id=post.id))
 
     return render_template('blog/add.html', form=form)
+
+
+@blog.route('/post/<int:post_id>/edit/', methods=['GET', 'POST'])
+def editPost(post_id):
+    post = Post.query.get(post_id)
+    form = PostForm()
+    form.title.data = post.title
+    form.body.data = post.body_md
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.body_md = form.body.data
+        db.session.add(post)
+        db.session.commit()
+
+        return redirect(url_for('blog.post', post_id=post.id))
+
+    return render_template('blog/edit.html', form=form, post=post)
