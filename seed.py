@@ -58,3 +58,13 @@ for dict in dictlist:
 
     db.session.add(post)
     db.session.commit()
+
+p = User()
+p.nickname = "Pat"
+p.first_name = "Patrick"
+p.last_name = "Allen"
+p.location = "Windham, NH"
+p.password = "password"
+
+db.session.add(p)
+db.session.commit()

@@ -3,7 +3,6 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-8">
-
 	{% for post in posts %}
 		<div class="post">
 			<div class="post-header">
@@ -20,18 +19,24 @@
 			</div>
 		</div>
 	{% endfor %}
-	<div class="pagination">
-		{% if pagination.hasPrev() %}
-		<a class="page-arrow" href="{{ url_for('blog.home', page=pagination.page-1) }}"><</a>
+		<div class="pagination">
+			{% if pagination.hasPrev() %}
+			<a class="page-arrow" href="{{ url_for('blog.home', page=pagination.page-1) }}"><</a>
+			{% endif %}
+
+			Page {{ pagination.page }} of {{ pagination.numPages }}
+
+			{% if pagination.hasNext() %}
+			<a class="page-arrow" href="{{ url_for('blog.home', page=pagination.page+1) }}">></a>
+			{% endif %}
+		</div>
+	</div>
+	<div class="col-md-4">
+		{% if current_user.is_authenticated() %}
+		{{ current_user.nickname }}
+		<a href="{{ url_for('blog.addPost') }}" class="btn btn-large">Add Post</a>
 		{% endif %}
-
-		Page {{ pagination.page }} of {{ pagination.numPages }}
-
-		{% if pagination.hasNext() %}
-		<a class="page-arrow" href="{{ url_for('blog.home', page=pagination.page+1) }}">></a>
-		{% endif %}
-
-
+		
 	</div>
 </div>
 {% endblock %}

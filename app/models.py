@@ -12,7 +12,23 @@ class User(db.Model):
     last_name = db.Column(db.String(60))
     date_created = db.Column(db.DateTime, default=db.func.now())
     location = db.Column(db.String(60))
+    authenticated = db.Column(db.Boolean(), default=True)
     password = db.Column(db.String(60))
+
+    def validate_pass(self, password):
+        return self.password == password
+
+    def is_active(self):
+        return True
+
+    def get_id(self):
+        return self.id
+
+    def is_authenticated(self):
+        return self.authenticated
+
+    def is_anonymous(self):
+        return False
 
 
 class Post(db.Model):
