@@ -3,7 +3,9 @@ from datetime import datetime
 from markdown import markdown
 from app import helpers
 import re
+import bcrypt
 from app import db
+from sqlalchemy.ext.hybrid import hybrid_property
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -13,10 +15,19 @@ class User(db.Model):
     date_created = db.Column(db.DateTime, default=db.func.now())
     location = db.Column(db.String(60))
     authenticated = db.Column(db.Boolean(), default=True)
-    password = db.Column(db.String(60))
+    pw_hash = db.Column(db.String(60))
+
+    @hybrid_property
+    def password(self):
+        return self.pw_hash
+
+    @password.setter
+    def _set_pass(self, password):
+        password_salt = bcrypt.gensalt()
+        self.pw_hash = bcrypt.hashpw(password.encode('utf-8'), password_salt)
 
     def validate_pass(self, password):
-        return self.password == password
+        return bcrypt.hashpw(password.encode('utf-8'), self.pw_hash) == self.pw_hash
 
     def is_active(self):
         return True

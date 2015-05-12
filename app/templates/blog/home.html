@@ -33,7 +33,6 @@
 	</div>
 	<div class="col-md-4">
 		{% if current_user.is_authenticated() %}
-		{{ current_user.nickname }}
 		<a href="{{ url_for('blog.addPost') }}" class="btn btn-large">Add Post</a>
 		{% endif %}
 		
