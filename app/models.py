@@ -12,7 +12,7 @@ class User(db.Model):
     last_name = db.Column(db.String(60))
     date_created = db.Column(db.DateTime, default=db.func.now())
     location = db.Column(db.String(60))
-    hometown = db.Column(db.String(60))
+    password = db.Column(db.String(60))
 
 
 class Post(db.Model):
