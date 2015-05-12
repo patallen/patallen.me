@@ -7,6 +7,7 @@ from app.models import Post
 from app.helpers import Pagination
 from app import db
 from .forms import PostForm
+from flask_login import login_required
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
 
@@ -41,6 +42,7 @@ def post(post_id):
 
 
 @blog.route('/post/add/', methods=['GET', 'POST'])
+@login_required
 def addPost():
     form = PostForm()
     if form.validate_on_submit():
@@ -57,6 +59,7 @@ def addPost():
 
 
 @blog.route('/post/<int:post_id>/edit/', methods=['GET', 'POST'])
+@login_required
 def editPost(post_id):
     post = Post.query.get(post_id)
     form = PostForm()

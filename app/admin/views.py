@@ -3,6 +3,7 @@ from .forms import LoginForm
 from app.models import User
 from flask.ext.login import login_user, logout_user, current_user
 from app import login_manager
+from flask_login import login_required
 
 admin = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -22,8 +23,8 @@ def login():
 			return redirect(url_for('home'))
 	return render_template('admin/login.html', form=form)
 
-
 @admin.route('/logout/')
+@login_required
 def logout():
 	logout_user()
 	return redirect(url_for('home'))
