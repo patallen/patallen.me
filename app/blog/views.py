@@ -26,6 +26,7 @@ def getNumPosts():
 @blog.route('/', defaults={'page': 1})
 @blog.route('/page/<int:page>/')
 def home(page=1):
+    """Blog home function - takes page number"""
     count = getNumPosts()
     posts = getPostsForPage(page, POSTS_PER_PAGE)
     pagination = Pagination(page, count, POSTS_PER_PAGE)
@@ -34,6 +35,7 @@ def home(page=1):
 
 @blog.route('/post/<int:post_id>')
 def post(post_id):
+    """Return a post by its ID"""
     try:
         post = Post.query.get(post_id)
     except:
@@ -44,7 +46,9 @@ def post(post_id):
 @blog.route('/post/add/', methods=['GET', 'POST'])
 @login_required
 def addPost():
+    """Return add post form or process new blog post"""
     form = PostForm()
+    
     if form.validate_on_submit():
         post = Post()
         post.author = 1
@@ -61,16 +65,17 @@ def addPost():
 @blog.route('/post/<int:post_id>/edit/', methods=['GET', 'POST'])
 @login_required
 def editPost(post_id):
+    """Edit an existing blog post"""
     post = Post.query.get(post_id)
     form = PostForm()
     form.title.data = post.title
     form.body.data = post.body_md
+
     if form.validate_on_submit():
         post.title = form.title.data
         post.body_md = form.body.data
         db.session.add(post)
         db.session.commit()
-
         return redirect(url_for('blog.post', post_id=post.id))
 
     return render_template('blog/edit.html', form=form, post=post)

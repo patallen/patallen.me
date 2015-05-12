@@ -2,6 +2,7 @@ import re
 from math import ceil
 
 class Pagination():
+    """Pagination class for blog home page"""
     def hasPrev(self):
         if self.page > 1:
             return True

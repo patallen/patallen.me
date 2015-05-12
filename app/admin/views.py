@@ -13,6 +13,9 @@ def load_user(id):
 
 @admin.route('/login/', methods=['GET', 'POST'])
 def login():
+	"""Lets the user log in to create/edit posts
+	and portfolio projects.
+	"""
 	form = LoginForm()
 	if form.validate_on_submit():
 		nickname = form.nickname.data
@@ -26,5 +29,6 @@ def login():
 @admin.route('/logout/')
 @login_required
 def logout():
+	"""Log out and redirect home."""
 	logout_user()
 	return redirect(url_for('home'))
