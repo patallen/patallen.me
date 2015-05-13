@@ -1,5 +1,20 @@
 {% extends 'base.html' %}
-
 {% block content %}
-This is the admin template
+<h2>What have I done?</h2>
+<hr>
+<div class="row">
+{% for project in projects %}
+	<div class="col-sm-6 col-md-4">
+		<div class="proj-title">
+		{{ project.title }}
+		</div>
+		<a href="{{ url_for('portfolio.project', project_id=project.id) }}">
+		<img class="img-responsive img-thumbnail" src="http://placehold.it/300x200">
+		</a>
+		<div class="proj-desc">
+		{{ project.description }}
+		</div>
+	</div>
+{% endfor %}
+</div>
 {% endblock %}

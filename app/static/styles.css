@@ -24,3 +24,8 @@ body{
 	text-decoration: bold;
 	padding: 0 20px;
 }
+
+.proj-desc {
+	padding: 4px;
+	margin-bottom: 20px;
+}
