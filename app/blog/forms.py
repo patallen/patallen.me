@@ -5,5 +5,5 @@ from wtforms.validators import DataRequired
 
 class PostForm(Form):
 	"""WTForm for creating/editing blog post"""
-    title = StringField('Title', validators=[DataRequired()])
-    body = TextAreaField('Body', validators=[DataRequired()])
+	title = StringField('Title', validators=[DataRequired()])
+	body = TextAreaField('Body', validators=[DataRequired()])
