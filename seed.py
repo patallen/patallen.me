@@ -1,5 +1,19 @@
 from app import db
 from app.models import *
+
+
+for user in User.query.all():
+    db.session.delete(user)
+    db.session.commit()
+
+for project in Project.query.all():
+    db.session.delete(project)
+    db.session.commit()
+
+for post in Post.query.all():
+    db.session.delete(post)
+    db.session.commit()
+
 dictlist=[
     {
 	"author": 1,
@@ -68,3 +82,54 @@ p.password = "password"
 
 db.session.add(p)
 db.session.commit()
+
+projectlist=[
+    {
+    "owner": 1,
+    "title": "Snipstr",
+    "description": """This was my first project ever!
+I really enjoyed making this.""",
+    "stack": "Flask, PostgreSQL, Javascript",
+    "project_url": "https://github.com/patallen/snipstr"
+    },
+    {
+    "owner": 1,
+    "title": "Snipstr",
+    "description": """This was my first project ever!
+I really enjoyed making this.""",
+    "stack": "Flask, PostgreSQL, Javascript",
+    "project_url": "https://github.com/patallen/snipstr"
+    },
+    {
+    "owner": 1,
+    "title": "Snipstr",
+    "description": """This was my first project ever!
+I really enjoyed making this.""",
+    "stack": "Flask, PostgreSQL, Javascript",
+    "project_url": "https://github.com/patallen/snipstr"
+    },
+    {
+    "owner": 1,
+    "title": "Snipstr",
+    "description": """This was my first project ever!
+I really enjoyed making this.""",
+    "stack": "Flask, PostgreSQL, Javascript",
+    "project_url": "https://github.com/patallen/snipstr"
+    },
+    {
+    "owner": 1,
+    "title": "Snipstr",
+    "description": """This was my first project ever!
+I really enjoyed making this.""",
+    "stack": "Flask, PostgreSQL, Javascript",
+    "project_url": "https://github.com/patallen/snipstr"
+    }
+]
+
+for project in projectlist:
+    proj = Project()
+    for key, value in project.items():
+        setattr(proj, key, value)
+
+    db.session.add(proj)
+    db.session.commit()

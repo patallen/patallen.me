@@ -63,6 +63,13 @@ class Project(db.Model):
     img_url = db.Column(db.String())
     date_completed = db.Column(db.Date)
 
+#    def __init__(self, owner, title, description, stack, project_url):
+#        self.owner = owner
+#        self.title = title
+#        self.description = description
+#        self.stack = stack
+#        self.project_url = project_url
+
 
 @event.listens_for(Post.body_md, 'set')
 def _generate_html(target, value, *unused):
