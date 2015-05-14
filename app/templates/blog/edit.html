@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Edit '{{ post.title }}'</h2>
-<form method="POST" action="/blog/post/add">
+<form method="POST" action="/blog/post/{{ post.id }}/edit/">
 {{ form.hidden_tag() }}
 <div class="form-group">
 {{ form.title.label }}:
