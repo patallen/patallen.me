@@ -3,6 +3,13 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-8">
+	{% if current_user.id == post.author %}
+	<div class="row">
+	<div class="col-md-12">
+		<a href="{{ url_for('blog.editPost', post_id=post.id) }}" class="btn btn-default pull-right">Edit Post</a>
+	</div>
+	</div>
+	{% endif %}
 		<div class="post">
 			<div class="post-header">
 				<h3>{{ post.title }}</h3>

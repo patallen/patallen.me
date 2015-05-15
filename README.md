@@ -16,7 +16,7 @@ Using flask-migrate, to manage database migrations. Currently using SQLite, but 
 1. `python seed.py`
 
 ### Todo:
-- [ ] Add and Edit buttons when logged in
+- [ ] Add and Edit buttons for projects when logged in
 - [ ] Delete and HIDE for projects/posts
 - [ ] Slugs for blog posts and projects
 - [ ] Implement image uploads for projects
@@ -25,6 +25,7 @@ Using flask-migrate, to manage database migrations. Currently using SQLite, but 
 - [ ] Static page views/templates
 - [ ] Make everything Pretty
 - [ ] Investigate Flask-PageDown markdown editor
+- [x] Add and Edit buttons for posts when logged in
 - [x] Add/Edit portfolio views/templates
 - [x] Set up flask-login w/ bcrypt
 - [x] Set up models (User, Post, Project)
