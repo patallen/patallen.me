@@ -15,7 +15,7 @@ class User(db.Model):
     date_created = db.Column(db.DateTime, default=db.func.now())
     location = db.Column(db.String(60))
     authenticated = db.Column(db.Boolean(), default=True)
-    pw_hash = db.Column(db.String(60))
+    pw_hash = db.Column(db.String())
 
     @hybrid_property
     def password(self):
