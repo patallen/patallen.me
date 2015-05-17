@@ -1,13 +1,13 @@
 """empty message
 
-Revision ID: 369a695c9c0
+Revision ID: 4a0cab9950a
 Revises: None
-Create Date: 2015-05-13 12:55:19.692084
+Create Date: 2015-05-17 00:37:52.420160
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '369a695c9c0'
+revision = '4a0cab9950a'
 down_revision = None
 
 from alembic import op
@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('date_created', sa.DateTime(), nullable=True),
     sa.Column('location', sa.String(length=60), nullable=True),
     sa.Column('authenticated', sa.Boolean(), nullable=True),
-    sa.Column('pw_hash', sa.String(length=60), nullable=True),
+    sa.Column('pw_hash', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('nickname')
     )
@@ -34,7 +34,7 @@ def upgrade():
     sa.Column('title', sa.String(length=240), nullable=False),
     sa.Column('body_md', sa.String(), nullable=False),
     sa.Column('body_html', sa.String(), nullable=True),
-    sa.Column('excerpt', sa.String(length=300), nullable=True),
+    sa.Column('excerpt', sa.String(length=400), nullable=True),
     sa.Column('date_created', sa.DateTime(), nullable=True),
     sa.Column('date_updated', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['author'], ['user.id'], ),
@@ -45,9 +45,9 @@ def upgrade():
     sa.Column('owner', sa.Integer(), nullable=True),
     sa.Column('title', sa.String(length=100), nullable=True),
     sa.Column('description', sa.String(length=500), nullable=True),
-    sa.Column('stack', sa.String(), nullable=True),
-    sa.Column('project_url', sa.String(), nullable=True),
-    sa.Column('img_url', sa.String(), nullable=True),
+    sa.Column('stack', sa.String(length=1000), nullable=True),
+    sa.Column('project_url', sa.String(length=1000), nullable=True),
+    sa.Column('img_url', sa.String(length=300), nullable=True),
     sa.Column('date_completed', sa.Date(), nullable=True),
     sa.ForeignKeyConstraint(['owner'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')

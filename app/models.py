@@ -3,7 +3,7 @@ from datetime import datetime
 from markdown import markdown
 from app import helpers
 import re
-import bcrypt
+from app import bcrypt
 from app import db
 from sqlalchemy.ext.hybrid import hybrid_property
 
@@ -23,11 +23,10 @@ class User(db.Model):
 
     @password.setter
     def _set_pass(self, password):
-        password_salt = bcrypt.gensalt()
-        self.pw_hash = bcrypt.hashpw(password.encode('utf-8'), password_salt)
+        self.pw_hash = bcrypt.generate_password_hash(password)
 
     def validate_pass(self, password):
-        return bcrypt.hashpw(password.encode('utf-8'), self.pw_hash) == self.pw_hash
+        return bcrypt.check_password_hash(self.pw_hash, password)
 
     def is_active(self):
         return True
@@ -48,7 +47,7 @@ class Post(db.Model):
     title = db.Column(db.String(240), nullable=False)
     body_md  = db.Column(db.String(), nullable=False)
     body_html = db.Column(db.String())
-    excerpt = db.Column(db.String(300))
+    excerpt = db.Column(db.String(400))
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
 
@@ -58,9 +57,9 @@ class Project(db.Model):
     owner = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(100))
     description = db.Column(db.String(500))
-    stack = db.Column(db.String())
-    project_url = db.Column(db.String())
-    img_url = db.Column(db.String())
+    stack = db.Column(db.String(1000))
+    project_url = db.Column(db.String(1000))
+    img_url = db.Column(db.String(300))
     date_completed = db.Column(db.Date)
 
 #    def __init__(self, owner, title, description, stack, project_url):
