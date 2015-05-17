@@ -17,7 +17,7 @@ class Pagination():
 
     def __init__(self, page, count, items_per_page):
         self.page = page
-        self.numPages = ceil(count / items_per_page)
+        self.numPages = int(ceil(count / items_per_page))
 
 
 def getExcerpt(html, length):

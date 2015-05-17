@@ -7,7 +7,7 @@ from flask_login import login_required, current_user
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
 
-POSTS_PER_PAGE = 5
+POSTS_PER_PAGE = 5.0
 
 
 def getPostsForPage(page, posts_per_page):
