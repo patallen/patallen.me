@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+	<div class="col-md-3">
+		<div class="face">
+			<img class="img-responsive img-circle" src="{{ url_for('static', filename='images/my_face.jpg') }}">
+		</div>
+		<hr>
+		<div class="contact-panel text-center">
+			<a href="mailto:prallen90@gmail.com">
+				<i class="fa fa-paper-plane fa-2x"></i>
+			</a>
+			<a href="http://github.com/patallen">
+				<i class="fa fa-github fa-2x"></i>
+			</a>
+			<a href="http://linkedin.com/in/patallendev">
+				<i class="fa fa-linkedin-square fa-2x"></i>
+			</a>
+		</div>
+	</div>
+	<div class="col-md-9">
+		<div class="about">
+			<h2 class="text-center">About Me</h2>
+			<hr>
+			<p>
+			Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+			Lorem Ipsum has been the industry's standard dummy text ever since the 
+			1500s, when an unknown printer took a galley of type and scrambled it to 
+			make a type specimen book. It has survived not only five centuries, but 
+			also the leap into electronic typesetting, remaining essentially unchanged. 
+			It was popularised in the 1960s with the release of Letraset sheets 
+			containing Lorem Ipsum passages, and more recently with desktop 
+			publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			</p>
+		</div>
+		<div class="recent-posts">
+			<h2 class="text-center">Recent Thoughts</h2>
+			<hr>
+			<div class="row">
+				{% for post in recent_posts %}
+				<div class="text-center col-lg-6 col-md-12">
+					<span class="post-date">{{ post.date_created.strftime('%B %d, %Y') }}</span>
+					<a href="{{ url_for('blog.post', post_id=post.id) }}">{{ post.title }}</a>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+
+

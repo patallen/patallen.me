@@ -15,10 +15,12 @@ login_manager.login_view='admin.login'
 from app.admin.views import admin
 from app.blog.views import blog
 from app.portfolio.views import portfolio
+from app.about.views import about 
 # Register blueprints
 app.register_blueprint(admin)
 app.register_blueprint(blog)
 app.register_blueprint(portfolio)
+app.register_blueprint(about)
 
 
 from app import views

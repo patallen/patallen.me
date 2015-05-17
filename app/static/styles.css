@@ -29,3 +29,26 @@ body{
 	padding: 4px;
 	margin-bottom: 20px;
 }
+.face {
+	padding: 20px;
+}
+.contact-panel i {
+	padding: 4px 8px
+}
+.contact-panel a{
+	color: black;
+}
+.contact-panel a:hover {
+	color: tomato;
+}
+
+.recent-posts {
+	margin-top: 30px;
+}
+.recent-posts a {
+	color: tomato;
+	display: block;
+	font-size: 2em;
+	padding-top: 0;
+	margin: 0;
+}
