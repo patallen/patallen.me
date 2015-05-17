@@ -73,4 +73,4 @@ class Project(db.Model):
 @event.listens_for(Post.body_md, 'set')
 def _generate_html(target, value, *unused):
     target.body_html = markdown(value)
-    target.excerpt = helpers.getExcerpt(target.body_html, 240)
+    target.excerpt = helpers.getExcerpt(target.body_html, 500)
