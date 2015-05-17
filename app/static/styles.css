@@ -52,3 +52,11 @@ body{
 	padding-top: 0;
 	margin: 0;
 }
+.nav-contact-panel{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.nav-contact-panel a{
+	color: gray;
+	margin-left: 10px;
+}
