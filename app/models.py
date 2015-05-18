@@ -47,7 +47,7 @@ class Post(db.Model):
     title = db.Column(db.String(240), nullable=False)
     body_md  = db.Column(db.String(), nullable=False)
     body_html = db.Column(db.String())
-    excerpt = db.Column(db.String(400))
+    excerpt = db.Column(db.String(600))
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
 
