@@ -60,3 +60,37 @@ body{
 	color: gray;
 	margin-left: 10px;
 }
+
+.categories {
+  font-family: Helvetica;
+  font-size: 13px;
+  border-radius: 5px;
+  width: 150px;
+  margin: 0;
+  padding: 0;
+  border-width: 1px;
+  border-color: lightgray;
+  border-style: solid;
+}
+.categories a {
+  display: block;
+  padding: 9px 10px;
+  list-style-type: none;
+  border-bottom: 1px solid lightgray;
+  color: #4183c4;
+  text-decoration: none;
+}
+.categories a.active {
+  font-weight: bold;
+  border-left: 4px solid tomato;
+  color: black;
+}
+.categories a.active:hover {
+  background-color: white;
+}
+.categories a:last-of-type {
+  border-bottom: none;
+}
+.categories a:hover {
+  background-color: #EEE;
+}
