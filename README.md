@@ -5,11 +5,11 @@ This is the repository for code for my personal website, patallen.me.
 
 1. `git clone https://github.com/patallen/patallen.me`
 1. `cd patallen.me`
-1. `virtualenv venv && . venv/bin/activate` (python 3)
+1. `virtualenv venv && . venv/bin/activate` (python 2.7)
 1. `pip install -r requirements.txt`
 
 ### Set up the database
-Using flask-migrate, to manage database migrations. Currently using SQLite, but will be moving to postgresql.
+Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 
 1. `python manage.py db init`
 1. `python manage.py db upgrade`
@@ -22,9 +22,9 @@ Using flask-migrate, to manage database migrations. Currently using SQLite, but 
 - [ ] Implement image uploads for projects
 - [ ] Use flask-images for server-side resizing
 - [ ] Add/Edit projects functionality
-- [ ] Static page views/templates
 - [ ] Make everything Pretty
 - [ ] Investigate Flask-PageDown markdown editor
+- [x] Static page views/templates
 - [x] Add and Edit buttons for posts when logged in
 - [x] Add/Edit portfolio views/templates
 - [x] Set up flask-login w/ bcrypt
