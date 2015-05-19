@@ -10,6 +10,7 @@ Mako==1.0.1
 Markdown==2.6.2
 MarkupSafe==0.23
 SQLAlchemy==1.0.4
+Unidecode==0.04.17
 WTForms==2.0.2
 Werkzeug==0.10.4
 alembic==0.7.6
@@ -18,5 +19,6 @@ itsdangerous==0.24
 psycopg2==2.6
 pycparser==2.13
 python-bcrypt==0.3.1
+python-slugify==1.0.2
 six==1.9.0
 wsgiref==0.1.2

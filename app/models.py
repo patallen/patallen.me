@@ -44,12 +44,19 @@ class User(db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey('user.id'))
+    slug = db.Column(db.String(), unique=True)
     title = db.Column(db.String(240), nullable=False)
     body_md  = db.Column(db.String(), nullable=False)
     body_html = db.Column(db.String())
     excerpt = db.Column(db.String(600))
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
+
+    def __init__(self, author, title, body_md):
+        self.title = title
+        self.author = author
+        self.body_md = body_md
+        self.slug = helpers.createSlug(title)
 
 
 class Project(db.Model):

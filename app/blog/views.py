@@ -29,11 +29,11 @@ def home(page=1):
     return render_template('blog/home.html', posts=posts, pagination=pagination)
 
 
-@blog.route('/post/<int:post_id>')
-def post(post_id):
-    """Return a post by its ID"""
+@blog.route('/post/<post_slug>')
+def post(post_slug):
+    """Return a post by its slug"""
     try:
-        post = Post.query.get(post_id)
+        post = Post.query.filter_by(slug=post_slug).one()
     except:
         abort(404)
     return render_template('blog/post.html', post=post)
@@ -46,23 +46,23 @@ def addPost():
     form = PostForm()
     
     if form.validate_on_submit():
-        post = Post()
-        post.author = current_user.id
-        post.title = form.title.data
-        post.body_md = form.body.data
+        author = current_user.id
+        title = form.title.data
+        body_md = form.body.data
+        post = Post(author, title, body_md)
         db.session.add(post)
         db.session.commit()
 
-        return redirect(url_for('blog.post', post_id=post.id))
+        return redirect(url_for('blog.post', post_slug=post.slug))
 
     return render_template('blog/add.html', form=form)
 
 
-@blog.route('/post/<int:post_id>/edit/', methods=['GET', 'POST'])
+@blog.route('/post/<post_slug>/edit/', methods=['GET', 'POST'])
 @login_required
-def editPost(post_id):
+def editPost(post_slug):
     """Edit an existing blog post"""
-    post = Post.query.get(post_id)
+    post = Post.query.filter_by(slug=post_slug).one()
     # Check that user is the owner of the project (not necessary atm)
     if current_user.id != post.author:
         return "You do not have permission to edit this blog post."
@@ -73,7 +73,7 @@ def editPost(post_id):
         post.body_md = form.body.data
         db.session.add(post)
         db.session.commit()
-        return redirect(url_for('blog.post', post_id=post.id))
+        return redirect(url_for('blog.post', post_slug=post.slug))
 
     # Pre-populate form with existing data
     form.title.data = post.title

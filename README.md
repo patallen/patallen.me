@@ -18,12 +18,12 @@ Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 ### Todo:
 - [ ] Add and Edit buttons for projects when logged in
 - [ ] Delete and HIDE for projects/posts
-- [ ] Slugs for blog posts and projects
 - [ ] Implement image uploads for projects
 - [ ] Use flask-images for server-side resizing
 - [ ] Add/Edit projects functionality
 - [ ] Make everything Pretty
 - [ ] Investigate Flask-PageDown markdown editor
+- [x] Slugs for blog posts
 - [x] Static page views/templates
 - [x] Add and Edit buttons for posts when logged in
 - [x] Add/Edit portfolio views/templates

@@ -7,5 +7,5 @@ about = Blueprint('about', __name__, url_prefix='/')
 def home():
 	"""Home page view - compilation of about info
 	and featured posts"""
-        recent_posts = Post.query.order_by(Post.date_created.desc()).limit(4)
+	recent_posts = Post.query.order_by(Post.date_created.desc()).limit(4)
 	return render_template('about/home.html', recent_posts=recent_posts)

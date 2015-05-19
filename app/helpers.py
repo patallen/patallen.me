@@ -1,5 +1,6 @@
 import re
 from math import ceil
+from slugify import slugify
 
 class Pagination():
     """Pagination class for blog home page"""
@@ -26,4 +27,7 @@ def getExcerpt(html, length):
     if len(text) <= length:
         return text 
     else:
-        return ' '.join(text[:length+1].split(' ')[0:-1]) + '...' 
+        return ' '.join(text[:length+1].split(' ')[0:-1]) + '...'
+
+def createSlug(title):
+    return str(slugify(title))
