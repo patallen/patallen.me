@@ -1,15 +1,19 @@
-
 {% extends 'base.html' %}
 
 {% block content %}
 <h2>Add a Blog Post</h2>
 <form method="POST" action="/blog/post/add/">
 {{ form.hidden_tag() }}
-<div class="form-group">
-{{ form.title.label }}:
-{{ form.title(class="form-control") }}
+<div class="row">
+	<div class="form-group col-md-9">
+	{{ form.title.label }}:
+	{{ form.title(class="form-control") }}
+	</div>
+	<div class="form-group col-md-3">
+	{{ form.category.label }}:
+	{{ form.category(class="form-control") }}
+	</div>
 </div>
-
 <div class="form-group">
 {{ form.body.label }}:
 {{ form.body(class="form-control body-text") }}

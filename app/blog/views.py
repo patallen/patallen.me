@@ -1,5 +1,5 @@
 from flask import abort, Blueprint, redirect, render_template, url_for
-from app.models import Post
+from app.models import Post, Category
 from app.helpers import Pagination
 from app import db
 from .forms import PostForm
@@ -44,17 +44,22 @@ def post(post_slug):
 def addPost():
     """Return add post form or process new blog post"""
     form = PostForm()
-    
+    form.category.choices = [(c.id, c.name) for c in Category.query.all()]
+    form.category.choices.insert(0, ('', 'Select...'))
+
     if form.validate_on_submit():
+        print "validated"
         author = current_user.id
         title = form.title.data
         body_md = form.body.data
-        post = Post(author, title, body_md)
+        category = form.category.data
+        post = Post(author, category, title, body_md)
         db.session.add(post)
         db.session.commit()
 
         return redirect(url_for('blog.post', post_slug=post.slug))
-
+    for error in form.errors.items():
+        print error
     return render_template('blog/add.html', form=form)
 
 
@@ -67,10 +72,11 @@ def editPost(post_slug):
     if current_user.id != post.author:
         return "You do not have permission to edit this blog post."
     form = PostForm()
-
+    form.category.choices = [(c.id, c.name) for c in Category.query.all()]
     if form.validate_on_submit():
         post.title = form.title.data
         post.body_md = form.body.data
+        post.category_id = form.category.data
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('blog.post', post_slug=post.slug))
@@ -78,5 +84,6 @@ def editPost(post_slug):
     # Pre-populate form with existing data
     form.title.data = post.title
     form.body.data = post.body_md
+    form.category.data = post.category_id
 
     return render_template('blog/edit.html', form=form, post=post)

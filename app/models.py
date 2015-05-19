@@ -53,8 +53,9 @@ class Post(db.Model):
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
 
-    def __init__(self, author, title, body_md):
+    def __init__(self, author, category_id, title, body_md):
         self.title = title
+        self.category_id = category_id
         self.author = author
         self.body_md = body_md
         self.slug = helpers.createSlug(title)
