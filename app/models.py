@@ -52,6 +52,7 @@ class Post(db.Model):
     excerpt = db.Column(db.String(600))
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
+    category = db.relationship('Category')
 
     def __init__(self, author, category_id, title, body_md):
         self.title = title
