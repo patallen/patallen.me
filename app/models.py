@@ -44,6 +44,7 @@ class User(db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.Integer, db.ForeignKey('user.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     slug = db.Column(db.String(), unique=True)
     title = db.Column(db.String(240), nullable=False)
     body_md  = db.Column(db.String(), nullable=False)
@@ -57,6 +58,11 @@ class Post(db.Model):
         self.author = author
         self.body_md = body_md
         self.slug = helpers.createSlug(title)
+
+@event.listens_for(Post.body_md, 'set')
+def _generate_html(target, value, *unused):
+    target.body_html = markdown(value)
+    target.excerpt = helpers.getExcerpt(target.body_html, 500)
 
 
 class Project(db.Model):
@@ -77,7 +83,13 @@ class Project(db.Model):
 #        self.project_url = project_url
 
 
-@event.listens_for(Post.body_md, 'set')
-def _generate_html(target, value, *unused):
-    target.body_html = markdown(value)
-    target.excerpt = helpers.getExcerpt(target.body_html, 500)
+class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    description = db.Column(db.String(240))
+    name = db.Column(db.String(60), nullable=False)
+    slug = db.Column(db.String(), unique=True)
+
+    def __init__(self, name, description=None):
+        self.name = name
+        self.description = description
+        self.slug = helpers.createSlug(name)
