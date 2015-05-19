@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-9 col-xs-12">
 	{% if current_user.id == post.author %}
 	<div class="row">
 	<div class="col-md-12">
@@ -11,11 +11,12 @@
 	</div>
 	{% endif %}
 		<div class="post">
-			<div class="post-header">
-				<h3>{{ post.title }}</h3>
-			<span class="date pull-right">
+			<div class="single-post-header">
+				<h2>{{ post.title }}</h2>
+			<span class="date">
 			{{ post.date_created.strftime('%B %d, %Y') }}
 			</span>
+			<hr>
 			</div>
 			<div class="post-excerpt">
 				{{ post.body_html|safe }}	
