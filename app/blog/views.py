@@ -10,10 +10,18 @@ blog = Blueprint('blog', __name__, url_prefix='/blog')
 POSTS_PER_PAGE = 5.0
 
 
-def getPostsForPage(page, posts_per_page):
-    return Post.query.order_by(Post.date_created.desc())\
-                     .offset(posts_per_page * page - posts_per_page)\
-                     .limit(posts_per_page)
+def getPostsForPage(page, posts_per_page, category_slug=''):
+    if category_slug:
+        slug_id = Category.query.filter(Category.slug==category_slug).one().id
+        posts = Post.query.filter(Post.category_id==slug_id)\
+                                      .order_by(Post.date_created.desc())\
+                                      .offset(posts_per_page * page - posts_per_page)\
+                                      .limit(posts_per_page)
+    else:
+        posts = Post.query.all().order_by(Post.date_created.desc())\
+                                .offset(posts_per_page * page - posts_per_page)\
+                                .limit(posts_per_page)
+    return posts
 
 def getNumPosts():
     return Post.query.count()
@@ -21,10 +29,12 @@ def getNumPosts():
 
 @blog.route('/', defaults={'page': 1})
 @blog.route('/page/<int:page>/')
-def home(page=1):
+@blog.route('/category/<category_slug>/', defaults={'page': 1})
+@blog.route('/category/<category_slug>/page/<int:page>/')
+def home(page=1, category_slug=''):
     """Blog home function - takes page number"""
     count = getNumPosts()
-    posts = getPostsForPage(page, POSTS_PER_PAGE)
+    posts = getPostsForPage(page, POSTS_PER_PAGE, category_slug=category_slug)
     pagination = Pagination(page, count, POSTS_PER_PAGE)
     return render_template('blog/home.html', posts=posts, pagination=pagination)
 
@@ -45,7 +55,7 @@ def addPost():
     """Return add post form or process new blog post"""
     form = PostForm()
     form.category.choices = [(c.id, c.name) for c in Category.query.all()]
-    form.category.choices.insert(0, ('', 'Select...'))
+    form.category.choices.insert(0, (0, 'Select...'))
 
     if form.validate_on_submit():
         print "validated"
