@@ -16,6 +16,7 @@ Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 1. `python seed.py`
 
 ### Todo:
+- [ ] FIX CATEGORY RELATIONSHIPS to use Post.category.slug
 - [ ] Add and Edit buttons for projects when logged in
 - [ ] Delete and HIDE for projects/posts
 - [ ] Implement image uploads for projects
