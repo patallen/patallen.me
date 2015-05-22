@@ -12,13 +12,14 @@ POSTS_PER_PAGE = 5.0
 
 def getPostsForPage(page, posts_per_page, category_slug=''):
     if category_slug:
+        print(page)
         slug_id = Category.query.filter(Category.slug==category_slug).one().id
         posts = Post.query.filter(Post.category_id==slug_id)\
                                       .order_by(Post.date_created.desc())\
                                       .offset(posts_per_page * page - posts_per_page)\
                                       .limit(posts_per_page)
     else:
-        posts = Post.query.all().order_by(Post.date_created.desc())\
+        posts = Post.query.order_by(Post.date_created.desc())\
                                 .offset(posts_per_page * page - posts_per_page)\
                                 .limit(posts_per_page)
     return posts
@@ -36,7 +37,7 @@ def home(page=1, category_slug=''):
     count = getNumPosts()
     posts = getPostsForPage(page, POSTS_PER_PAGE, category_slug=category_slug)
     pagination = Pagination(page, count, POSTS_PER_PAGE)
-    return render_template('blog/home.html', posts=posts, pagination=pagination)
+    return render_template('blog/home.html', posts=posts, pagination=pagination, category_slug=category_slug)
 
 
 @blog.route('/post/<post_slug>')
