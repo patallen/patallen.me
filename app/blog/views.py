@@ -27,6 +27,10 @@ def getPostsForPage(page, posts_per_page, category_slug=''):
 def getNumPosts():
     return Post.query.count()
 
+@blog.context_processor
+def category_processor():
+    return dict(categories=Category.query.all())
+
 
 @blog.route('/', defaults={'page': 1})
 @blog.route('/page/<int:page>/')
