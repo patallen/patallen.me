@@ -13,14 +13,19 @@
 		<div class="post">
 			<div class="single-post-header">
 				<h2>{{ post.title }}</h2>
-			<span class="date">
-			{{ post.date_created.strftime('%B %d, %Y') }}
-			</span>||
-			<span class="date">
-			{{ post.category.name }}
-			</span>
-			<hr>
+			<div class="post-info">
+				<span class="date">
+					<i class="fa fa-calendar"></i>
+				{{ post.date_created.strftime('%B %d, %Y') }}
+				</span>
+				<span class="date">
+					<i class="fa fa-folder-open-o"></i>
+				{{ post.category.name }}
+				</span>
+				</div>
 			</div>
+
+			<hr>
 			<div class="post-excerpt">
 				{{ post.body_html|safe }}	
 			</div>

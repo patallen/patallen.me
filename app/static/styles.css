@@ -1,30 +1,39 @@
+body{
+	padding-top: 60px;
+}
+
 .container {
 	max-width: 1000px;
 }
 
 .post-header h2 {
-	margin-bottom: 2px;
+	margin-bottom: 4px;
 }
+
 .post-header h2 a{
 	color: tomato;
 }
+
 .single-post-header{
 
 }
+
 .post {
-/*	border-bottom: 1px solid rgba(0,0,0,.3);*/
 	padding-bottom: 10px;
 }
+
 .post-header{
 	padding: 10px 0
 }
+
+.post-info{
+	color: rgb(90, 90, 90);
+}
+
 .post-footer{
 	padding: 0 0 0 10px;
 }
 
-body{
-	padding-top: 60px;
-}
 .page-arrow {
 	font-size: 150%;
 	text-decoration: bold;
@@ -111,4 +120,7 @@ body{
 }
 .categories a:hover {
   background-color: #EEE;
+}
+.date{
+	margin-right: 10px;
 }

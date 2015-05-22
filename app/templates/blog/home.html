@@ -13,12 +13,16 @@
 		<div class="post">
 			<div class="post-header">
 				<h2><a href="{{ url_for('blog.post', post_slug=post.slug)}}">{{ post.title }}</a></h2>
-			<span class="date">
-			{{ post.date_created.strftime('%B %d, %Y') }}
-			</span>||
-			<span class="date">
-			{{ post.category.name }}
-			</span>
+			<div class="post-info">
+				<span class="date">
+					<i class="fa fa-calendar"></i>
+				{{ post.date_created.strftime('%B %d, %Y') }}
+				</span>
+				<span class="date">
+					<i class="fa fa-folder-open-o"></i>
+				{{ post.category.name }}
+				</span>
+				</div>
 			</div>
 			<div class="post-excerpt">
 				{{ post.body_html|safe }}	
