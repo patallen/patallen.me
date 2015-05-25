@@ -12,9 +12,7 @@ POSTS_PER_PAGE = 5.0
 
 def getPostsForPage(page, posts_per_page, category_slug=''):
     if category_slug:
-        print(page)
-        slug_id = Category.query.filter(Category.slug==category_slug).one().id
-        posts = Post.query.filter(Post.category_id==slug_id)\
+        posts = Post.query.filter(Post.category.has(Category.slug == category_slug))\
                                       .order_by(Post.date_created.desc())\
                                       .offset(posts_per_page * page - posts_per_page)\
                                       .limit(posts_per_page)
