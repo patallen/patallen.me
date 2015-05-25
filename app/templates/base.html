@@ -18,7 +18,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>	
-					<a class="navbar-brand hidden-xs" href="{{ url_for('home') }}">Pat Allen</a>
+					<a class="navbar-brand hidden-xs" href="{{ url_for('about.home') }}">Pat Allen</a>
 					<div class="nav-contact-panel visible-xs">
 						<a href="mailto:prallen90@gmail.com">
 							<i class="fa fa-paper-plane fa-2x"></i>
@@ -36,7 +36,7 @@
 				<div id="navbar" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li {% if request.path =='/' %}class="active"{% endif %}>
-							<a href="{{ url_for('home') }}">Home</a>
+							<a href="{{ url_for('about.home') }}">Home</a>
 						</li>
 						<li {% if '/blog' in request.path %}class="active"{% endif %}>
 							<a href="{{ url_for('blog.home') }}">Blog</a>

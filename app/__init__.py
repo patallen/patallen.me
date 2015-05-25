@@ -21,6 +21,3 @@ app.register_blueprint(admin)
 app.register_blueprint(blog)
 app.register_blueprint(portfolio)
 app.register_blueprint(about)
-
-
-from app import views
