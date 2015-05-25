@@ -23,7 +23,7 @@ def login():
 		user = User.query.filter_by(nickname=nickname).first()
 		if user and user.validate_pass(password):
 			login_user(user)
-			return redirect(url_for('home'))
+			return redirect(url_for('about.home'))
 	return render_template('admin/login.html', form=form)
 
 @admin.route('/logout/')
@@ -31,4 +31,4 @@ def login():
 def logout():
 	"""Log out and redirect home."""
 	logout_user()
-	return redirect(url_for('home'))
+	return redirect(url_for('about.home'))
