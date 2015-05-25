@@ -50,7 +50,7 @@ def post(post_slug):
         post = Post.query.filter_by(slug=post_slug).one()
     except:
         abort(404)
-    return render_template('blog/post.html', post=post)
+    return render_template('blog/post.html', post=post, category_slug=post.category.slug)
 
 
 @blog.route('/post/add/', methods=['GET', 'POST'])

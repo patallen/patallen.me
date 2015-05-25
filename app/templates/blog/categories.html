@@ -1,8 +1,8 @@
 <div class="categories-spacer hidden-xs">
 </div>
 <ul class="pull-right categories">
-	<a {% if request.path=="/blog/" %}class="active"{% endif %}href="{{ url_for('blog.home') }}">All</a>
+	<a {% if not category_slug %}class="active"{% endif %}href="{{ url_for('blog.home') }}">All</a>
 	{% for cat in categories %}
-	<a {% if cat.slug in request.path %}class="active"{% endif %} href="{{ url_for('blog.home', category_slug=cat.slug)}}">{{ cat.name }}</a>
+	<a {% if cat.slug == category_slug %}class="active"{% endif %} href="{{ url_for('blog.home', category_slug=cat.slug)}}">{{ cat.name }}</a>
 	{% endfor %}
 </ul>
