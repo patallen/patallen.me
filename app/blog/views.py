@@ -11,16 +11,15 @@ POSTS_PER_PAGE = 5.0
 
 
 def getPostsForPage(page, posts_per_page, category_slug=''):
+    """Gets posts for home blog page -- category_slug is optional"""
+    postQuery = Post.query
+    # Filter by category_slug if it exists
     if category_slug:
-        posts = Post.query.filter(Post.category.has(Category.slug == category_slug))\
-                                      .order_by(Post.date_created.desc())\
-                                      .offset(posts_per_page * page - posts_per_page)\
-                                      .limit(posts_per_page)
-    else:
-        posts = Post.query.order_by(Post.date_created.desc())\
-                                .offset(posts_per_page * page - posts_per_page)\
-                                .limit(posts_per_page)
-    return posts
+         postQuery = postQuery.filter(Post.category.has(Category.slug == category_slug))
+
+    return postQuery.order_by(Post.date_created.desc())\
+                    .offset(posts_per_page * page - posts_per_page)\
+                    .limit(posts_per_page)
 
 def getNumPosts():
     return Post.query.count()
