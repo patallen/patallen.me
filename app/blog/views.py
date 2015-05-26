@@ -21,7 +21,7 @@ def getPostsForPage(page, posts_per_page, category_slug=''):
                     .offset(posts_per_page * page - posts_per_page)\
                     .limit(posts_per_page)
 
-def getNumPosts(category_slug=''):
+def getNumPosts(category_slug=None):
     if category_slug:
         return Post.query.filter(Post.category.has(Category.slug == category_slug)).count()
     return Post.query.count()
@@ -35,7 +35,7 @@ def category_processor():
 @blog.route('/page/<int:page>/')
 @blog.route('/category/<category_slug>/', defaults={'page': 1})
 @blog.route('/category/<category_slug>/page/<int:page>/')
-def home(page=1, category_slug=''):
+def home(page=1, category_slug=None):
     """Blog home function - takes page number"""
     count = getNumPosts(category_slug)
     posts = getPostsForPage(page, POSTS_PER_PAGE, category_slug=category_slug)
