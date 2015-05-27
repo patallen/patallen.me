@@ -1,33 +1,41 @@
-from flask import abort, Blueprint, redirect, render_template, url_for
-from app.models import Post, Category
-from app.helpers import Pagination
 from app import db
-from .forms import PostForm
+from app.helpers import Pagination
+from app.models import Post, Category
+from flask import abort, Blueprint, redirect, render_template, url_for
 from flask_login import login_required, current_user
+from .forms import PostForm
+
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
 
 POSTS_PER_PAGE = 5.0
 
+def filterPostByCategorySlug(category_slug):
+    return Post.query.filter(Post.category.has(Category.slug == category_slug))
 
 def getPostsForPage(page, posts_per_page, category_slug=''):
     """Gets posts for home blog page -- category_slug is optional"""
     postQuery = Post.query
     # Filter by category_slug if it exists
     if category_slug:
-         postQuery = postQuery.filter(Post.category.has(Category.slug == category_slug))
-
+         postQuery = filterPostByCategorySlug(category_slug)
+    # Return resulting query offset & limited for given page
     return postQuery.order_by(Post.date_created.desc())\
                     .offset(posts_per_page * page - posts_per_page)\
                     .limit(posts_per_page)
 
+
 def getNumPosts(category_slug=None):
+    """Gets total number of posts or total number of posts
+    within a specific category if category_slug provided"""
     if category_slug:
-        return Post.query.filter(Post.category.has(Category.slug == category_slug)).count()
+        return filterPostByCategorySlug(category_slug).count()
     return Post.query.count()
+
 
 @blog.context_processor
 def category_processor():
+    """Makes categories available to templates"""
     return dict(categories=Category.query.all())
 
 
