@@ -5,7 +5,7 @@ from flask.ext.login import login_user, logout_user, current_user
 from app import login_manager
 from flask_login import login_required
 
-admin = Blueprint('admin', __name__, url_prefix='/admin')
+admin = Blueprint('admin', __name__, url_prefix='')
 
 @login_manager.user_loader
 def load_user(id):
