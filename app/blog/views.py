@@ -10,15 +10,18 @@ blog = Blueprint('blog', __name__, url_prefix='/blog')
 
 POSTS_PER_PAGE = 5.0
 
-def filterPostByCategorySlug(category_slug):
+
+def filterPostsByCategory(category_slug):
+    """Returns a Post query set filtered by category_slug"""
     return Post.query.filter(Post.category.has(Category.slug == category_slug))
+
 
 def getPostsForPage(page, posts_per_page, category_slug=''):
     """Gets posts for home blog page -- category_slug is optional"""
     postQuery = Post.query
     # Filter by category_slug if it exists
     if category_slug:
-         postQuery = filterPostByCategorySlug(category_slug)
+        postQuery = filterPostsByCategory(category_slug)
     # Return resulting query offset & limited for given page
     return postQuery.order_by(Post.date_created.desc())\
                     .offset(posts_per_page * page - posts_per_page)\
@@ -29,7 +32,7 @@ def getNumPosts(category_slug=None):
     """Gets total number of posts or total number of posts
     within a specific category if category_slug provided"""
     if category_slug:
-        return filterPostByCategorySlug(category_slug).count()
+        return filterPostsByCategory(category_slug).count()
     return Post.query.count()
 
 
@@ -48,7 +51,8 @@ def home(page=1, category_slug=None):
     count = getNumPosts(category_slug)
     posts = getPostsForPage(page, POSTS_PER_PAGE, category_slug=category_slug)
     pagination = Pagination(page, count, POSTS_PER_PAGE)
-    return render_template('blog/home.html', posts=posts, pagination=pagination, category_slug=category_slug)
+    return render_template('blog/home.html', posts=posts,
+                           pagination=pagination, category_slug=category_slug)
 
 
 @blog.route('/post/<post_slug>')
@@ -58,7 +62,8 @@ def post(post_slug):
         post = Post.query.filter_by(slug=post_slug).one()
     except:
         abort(404)
-    return render_template('blog/post.html', post=post, category_slug=post.category.slug)
+    return render_template('blog/post.html', post=post,
+                           category_slug=post.category.slug)
 
 
 @blog.route('/post/add/', methods=['GET', 'POST'])
@@ -70,7 +75,6 @@ def addPost():
     form.category.choices.insert(0, (0, 'Select...'))
 
     if form.validate_on_submit():
-        print "validated"
         author = current_user.id
         title = form.title.data
         body_md = form.body.data
@@ -80,8 +84,7 @@ def addPost():
         db.session.commit()
 
         return redirect(url_for('blog.post', post_slug=post.slug))
-    for error in form.errors.items():
-        print error
+
     return render_template('blog/add.html', form=form)
 
 
