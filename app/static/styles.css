@@ -34,10 +34,17 @@ body{
 	padding: 0 0 0 10px;
 }
 
+.pagination {
+	display: block;
+}
 .page-arrow {
-	font-size: 150%;
-	text-decoration: bold;
-	padding: 0 20px;
+	margin: 0 20px;
+	padding: 8;
+}
+
+.page-status {
+	padding: 12px 10px;
+	display: inline;
 }
 
 .proj-desc {

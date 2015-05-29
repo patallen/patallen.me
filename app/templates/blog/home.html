@@ -36,15 +36,16 @@
 			</div>
 		</div>
 	{% endfor %}
-		<div class="pagination">
+		<div class="pagination text-center">
 			{% if pagination.hasPrev() %}
-			<a class="page-arrow" href="{{ url_for('blog.home', category_slug=category_slug, page=pagination.page-1) }}"><</a>
+			<a class="page-arrow btn btn-default" href="{{ url_for('blog.home', category_slug=category_slug, page=pagination.page-1) }}">prev</a>
 			{% endif %}
-
+			<div class="page-status">
 			Page {{ pagination.page }} of {{ pagination.numPages }}
+			</div>
 
 			{% if pagination.hasNext() %}
-			<a class="page-arrow" href="{{ url_for('blog.home', category_slug=category_slug, page=pagination.page+1) }}">></a>
+			<a class="page-arrow btn btn-default" href="{{ url_for('blog.home', category_slug=category_slug, page=pagination.page+1) }}">next</a>
 			{% endif %}
 		</div>
 	</div>
