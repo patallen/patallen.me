@@ -23,9 +23,12 @@ def getPostsForPage(page, posts_per_page, category_slug=''):
     if category_slug:
         postQuery = filterPostsByCategory(category_slug)
     # Return resulting query offset & limited for given page
-    return postQuery.order_by(Post.date_created.desc())\
+    posts = postQuery.order_by(Post.date_created.desc())\
                     .offset(posts_per_page * page - posts_per_page)\
                     .limit(posts_per_page)
+    if len(posts.all()) < 1:
+        return None
+    return posts 
 
 
 def getNumPosts(category_slug=None):
@@ -51,6 +54,9 @@ def home(page=1, category_slug=None):
     count = getNumPosts(category_slug)
     posts = getPostsForPage(page, POSTS_PER_PAGE, category_slug=category_slug)
     pagination = Pagination(page, count, POSTS_PER_PAGE)
+
+    if posts < 1:
+        abort(404)
     return render_template('blog/home.html', posts=posts,
                            pagination=pagination, category_slug=category_slug)
 
