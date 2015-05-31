@@ -91,7 +91,7 @@ def addPost():
 
         return redirect(url_for('blog.post', post_slug=post.slug))
 
-    return render_template('blog/add.html', form=form)
+    return render_template('blog/compose.html', form=form)
 
 
 @blog.route('/post/<post_slug>/edit/', methods=['GET', 'POST'])
@@ -117,4 +117,4 @@ def editPost(post_slug):
     form.body.data = post.body_md
     form.category.data = post.category_id
 
-    return render_template('blog/edit.html', form=form, post=post)
+    return render_template('blog/compose.html', form=form, post=post)

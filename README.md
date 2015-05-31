@@ -24,7 +24,7 @@ Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 - [ ] Use flask-images for server-side resizing
 - [ ] Add/Edit projects functionality
 - [ ] Make everything Pretty
-- [ ] Investigate Flask-PageDown markdown editor
+- [x] Add markdown editor.
 - [x] Slugs for blog posts
 - [x] Static page views/templates
 - [x] Add and Edit buttons for posts when logged in
