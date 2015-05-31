@@ -66,7 +66,7 @@ class Project(db.Model):
     title = db.Column(db.String(100))
     description = db.Column(db.String(500))
     stack = db.Column(db.String(1000))
-    project_url = db.Column(db.String(1000))
+    github_url = db.Column(db.String(1000))
     img_url = db.Column(db.String(300))
     date_completed = db.Column(db.Date)
 

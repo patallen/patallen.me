@@ -14,12 +14,6 @@ def home():
 	return render_template('portfolio/home.html', projects=projects)
 
 
-@portfolio.route('/<int:project_id>/')
-def project(project_id):
-	"""Returns a single project by its ID"""
-	return "This is the work piece {}".format(project_id)
-
-
 @portfolio.route('/add/', methods=['GET', 'POST'])
 @login_required
 def addProject():
@@ -32,13 +26,13 @@ def addProject():
 		project.title = form.title.data
 		project.description = form.description.data
 		project.stack = form.stack.data
-		project.project_url = form.github_url.data
+		project.github_url = form.github_url.data
 		db.session.add(project)
 		db.session.commit()
 
-		return redirect(url_for('portfolio.project', project_id=project.id))
+		return redirect(url_for('portfolio.home', project_id=project.id))
 
-	return render_template('portfolio/add.html', form=form)
+	return render_template('portfolio/compose.html', form=form)
 
 
 @portfolio.route('/<int:project_id>/edit/', methods=['GET', 'POST'])
@@ -56,16 +50,18 @@ def editProject(project_id):
 		project.title = form.title.data
 		project.description = form.description.data
 		project.stack = form.stack.data
-		project.project_url = form.github_url.data
+		project.github_url = form.github_url.data
+		project.img_url = form.image_url.data
 		db.session.add(project)
 		db.session.commit()
 
-		return redirect(url_for('portfolio.project', project_id=project.id))
+		return redirect(url_for('portfolio.home'))
 
 	# Pre-populate form with existing data
+	form.image_url.data = project.img_url
 	form.title.data = project.title
 	form.description.data = project.description
 	form.stack.data = project.stack
-	form.github_url.data = project.project_url
+	form.github_url.data = project.github_url
 
-	return render_template('portfolio/edit.html', form=form, project_id=project_id)
+	return render_template('portfolio/compose.html', form=form, project_id=project_id)
