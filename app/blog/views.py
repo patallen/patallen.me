@@ -1,7 +1,7 @@
 from app import db
 from app.helpers import Pagination
 from app.models import Post, Category
-from flask import abort, Blueprint, redirect, render_template, url_for
+from flask import abort, Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
 from .forms import PostForm
 
@@ -45,23 +45,24 @@ def category_processor():
     return dict(categories=Category.query.all())
 
 
-@blog.route('/', defaults={'page': 1})
-@blog.route('/page/<int:page>/')
-@blog.route('/category/<category_slug>/', defaults={'page': 1})
-@blog.route('/category/<category_slug>/page/<int:page>/')
-def home(page=1, category_slug=None):
+@blog.route('/')
+@blog.route('/category/<category_slug>/')
+def home(category_slug=None):
     """Blog home function - takes page number"""
+    page = 1
+    if request.args.get('page'):
+        page = int(request.args.get('page'))
     count = getNumPosts(category_slug)
     posts = getPostsForPage(page, POSTS_PER_PAGE, category_slug=category_slug)
     pagination = Pagination(page, count, POSTS_PER_PAGE)
 
-    if posts < 1:
+    if not posts:
         abort(404)
     return render_template('blog/home.html', posts=posts,
                            pagination=pagination, category_slug=category_slug)
 
 
-@blog.route('/post/<post_slug>')
+@blog.route('/post/<post_slug>/')
 def post(post_slug):
     """Return a post by its slug"""
     try:
