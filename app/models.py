@@ -48,8 +48,6 @@ class Post(db.Model):
     slug = db.Column(db.String(), unique=True)
     title = db.Column(db.String(240), nullable=False)
     body_md  = db.Column(db.String(), nullable=False)
-    body_html = db.Column(db.String())
-    excerpt = db.Column(db.String(600))
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
     category = db.relationship('Category')
@@ -60,11 +58,6 @@ class Post(db.Model):
         self.author = author
         self.body_md = body_md
         self.slug = helpers.createSlug(title)
-
-@event.listens_for(Post.body_md, 'set')
-def _generate_html(target, value, *unused):
-    target.body_html = markdown(value)
-    target.excerpt = helpers.getExcerpt(target.body_html, 500)
 
 
 class Project(db.Model):
