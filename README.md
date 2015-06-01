@@ -16,14 +16,15 @@ Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 1. `python seed.py`
 
 ### Todo:
+- [ ] Use flask-admin as admin interface
+- [ ] Views for projects/post deletion
 - [ ] Hide post / save as draft functionality
 - [ ] Add and Edit buttons for projects when logged in
 - [ ] Create and add favicon
-- [ ] Views for projects/post deletion
 - [ ] Implement image uploads for projects
 - [ ] Use flask-images for server-side resizing
-- [ ] Add/Edit projects functionality
 - [ ] Make everything Pretty
+- [x] Add/Edit projects functionality
 - [x] Add markdown editor.
 - [x] Slugs for blog posts
 - [x] Static page views/templates
