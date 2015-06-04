@@ -27,10 +27,11 @@ def addProject():
 		project.description = form.description.data
 		project.stack = form.stack.data
 		project.github_url = form.github_url.data
+		project.img_url = form.image_url.data
 		db.session.add(project)
 		db.session.commit()
 
-		return redirect(url_for('portfolio.home', project_id=project.id))
+		return redirect(url_for('portfolio.home'))
 
 	return render_template('portfolio/compose.html', form=form)
 
