@@ -4,15 +4,16 @@
 <hr>
 <div class="row">
 {% for project in projects %}
-	<div class="col-sm-6 col-md-4">
-		<div class="proj-title">
-		{{ project.title }}
+	<div class="row">
+		<div class="col-md-4">
+			<img class="img-responsive" src="{{ project.img_url }}">
 		</div>
-		<a href="{{ url_for('blog.post', post_slug=project.blog_slug) }}">
-		<img class="img-responsive img-thumbnail" src="http://placehold.it/300x200">
-		</a>
-		<div class="proj-desc">
-		{{ project.description }}
+		<div class="col-md-8">
+		<h3>{{ project.title }}</h3>
+		<strong>Description:</strong>
+		<p>{{ project.description }}</p>
+		<strong>Stack:</strong> {{ project.stack }}
+		<a class="pull-right" href="{{ project.github_url }}">View on GitHub</a>
 		</div>
 	</div>
 {% endfor %}
