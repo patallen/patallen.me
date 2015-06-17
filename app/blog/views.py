@@ -4,6 +4,7 @@ from app.models import Post, Category
 from flask import abort, Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
 from .forms import PostForm
+from app.util.errors import NoPostsFound
 
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
@@ -27,7 +28,7 @@ def getPostsForPage(page, posts_per_page, category_slug=''):
                     .offset(posts_per_page * page - posts_per_page)\
                     .limit(posts_per_page)
     if len(posts.all()) < 1:
-        return None
+        raise NoPostsFound("No posts were found for this category.")
     return posts 
 
 
@@ -57,7 +58,7 @@ def home(category_slug=None):
     pagination = Pagination(page, count, POSTS_PER_PAGE)
 
     if not posts:
-        abort(404)
+       return "No posts for this category." 
     return render_template('blog/home.html', posts=posts,
                            pagination=pagination, category_slug=category_slug)
 
