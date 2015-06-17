@@ -11,9 +11,14 @@ This is the repository for code for my personal website, patallen.me.
 ### Set up the database
 Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 
-1. `python manage.py db init`
 1. `python manage.py db upgrade`
+1. 'python manage.py createsuperuser'
 1. `python seed.py`
+
+### Create and link PATALLENME_SETTINGS
+1. create a `patallenme_settings.py` and place it somewhere
+1. include `SQLALCHEMY_DATABASE_URI`, `SECRET_KEY`, and `DEBUG`
+1. `export PATALLENME_SETTINGS=~/location/to/patallenme_settings.py`
 
 ### Todo:
 - [ ] Use flask-admin as admin interface

@@ -6,10 +6,6 @@ categories=[
 ]
 
 def deleteAll():
-    for user in User.query.all():
-        db.session.delete(user)
-        db.session.commit()
-
     for project in Project.query.all():
         db.session.delete(project)
         db.session.commit()
@@ -22,17 +18,6 @@ def deleteAll():
         db.session.delete(cat)
         db.session.commit()
 
-def createUser():
-    p = User()
-    p.nickname = "Pat"
-    p.first_name = "Patrick"
-    p.last_name = "Allen"
-    p.location = "Windham, NH"
-    p.password = "password"
-    
-    db.session.add(p)
-    db.session.commit()
-
 
 def createCategories():
     for cat in categories:
@@ -41,5 +26,4 @@ def createCategories():
 
 if __name__ == '__main__':
     deleteAll()
-    createUser()
     createCategories()
