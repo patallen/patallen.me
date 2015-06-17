@@ -33,6 +33,9 @@ body{
 .post-footer{
 	padding: 0 0 0 10px;
 }
+.post-footer .options span{
+	padding-left: 10px;
+}
 
 .pagination {
 	display: block;

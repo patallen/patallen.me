@@ -3,7 +3,7 @@ from app.helpers import Pagination
 from app.models import Post, Category
 from flask import abort, Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
-from .forms import PostForm
+from .forms import PostForm, DeleteForm
 from app.util.errors import NoPostsFound
 
 
@@ -120,3 +120,17 @@ def editPost(post_slug):
     form.category.data = post.category_id
 
     return render_template('blog/compose.html', form=form, post=post)
+
+@blog.route('/post/<post_slug>/delete/', methods=['GET', 'POST'])
+@login_required
+def deletePost(post_slug):
+    """Route to delete an existing blog post"""
+    post = Post.query.filter_by(slug=post_slug).one()
+    if current_user.id != post.author:
+        return "You do not have permission to delete this post."
+    form = DeleteForm()
+    if form.validate_on_submit():
+        db.session.delete(post)
+        db.session.commit()
+        return redirect(url_for('blog.home'))
+    return render_template('blog/delete.html', form=form, post=post)
