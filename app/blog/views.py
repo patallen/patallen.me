@@ -28,7 +28,9 @@ def getPostsForPage(page, posts_per_page, category_slug=''):
                     .offset(posts_per_page * page - posts_per_page)\
                     .limit(posts_per_page)
     if len(posts.all()) < 1:
-        raise NoPostsFound("No posts were found for this category.")
+        if category_slug:
+            raise NoPostsFound("No posts were found for this category.")
+        raise NoPostsFound("It seems tehre are no posts in the database :(")
     return posts 
 
 
@@ -64,8 +66,6 @@ def home(category_slug=None):
     posts = getPostsForPage(page, POSTS_PER_PAGE, category_slug=category_slug)
     pagination = Pagination(page, count, POSTS_PER_PAGE)
 
-    if not posts:
-       return "No posts for this category." 
     return render_template('blog/home.html', posts=posts,
                            pagination=pagination, category_slug=category_slug)
 

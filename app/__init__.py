@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config.from_envvar('PATALLENME_SETTINGS')
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-Markdown(app)
+Markdown(app, extensions=['fenced_code', 'codehilite'])
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view='admin.login'
