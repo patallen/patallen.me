@@ -4,7 +4,7 @@ from app.models import Post, Category
 from flask import abort, Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
 from .forms import PostForm, DeleteForm
-from app.util.errors import NoPostsFound, InvalidCategory
+from app.util.errors import NoPostsFound, InvalidCategory, PostNotFound
 
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
@@ -55,7 +55,6 @@ def home(category_slug=None):
         try:
             Category.query.filter_by(slug=category_slug).one()
         except:
-            print "category does not exist"
             raise InvalidCategory("The specified category does not exist.")
 
     page = 1
@@ -77,7 +76,7 @@ def post(post_slug):
     try:
         post = Post.query.filter_by(slug=post_slug).one()
     except:
-        abort(404)
+        raise PostNotFound("The post you are looking for could not be found.")
     return render_template('blog/post.html', post=post,
                            category_slug=post.category.slug)
 
