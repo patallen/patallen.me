@@ -30,7 +30,7 @@ def getPostsForPage(page, posts_per_page, category_slug=''):
     if len(posts.all()) < 1:
         if category_slug:
             raise NoPostsFound("No posts were found for this category.")
-        raise NoPostsFound("It seems tehre are no posts in the database :(")
+        raise NoPostsFound("It seems there are no posts in the database :(")
     return posts 
 
 
