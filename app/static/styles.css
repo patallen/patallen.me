@@ -134,6 +134,12 @@ body{
 .date{
 	margin-right: 10px;
 }
+#text-area-editor {
+	display: none;
+}
+#epiceditor  {
+	min-height: 300px;
+}
 
 .hll { background-color: #ffffcc }
 .c { color: #999988; font-style: italic } /* Comment */
