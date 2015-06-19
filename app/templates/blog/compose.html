@@ -13,25 +13,25 @@
 {% else %}
 <form method="POST" action="/blog/post/add/">
 {% endif %}
-	{{ form.hidden_tag() }}
-	<div class="row">
-		<div class="form-group col-md-9">
-		{{ form.title.label }}:
-		{{ form.title(class="form-control") }}
-		</div>
-		<div class="form-group col-md-3">
-		{{ form.category.label }}:
-		{{ form.category(class="form-control") }}
-		</div>
-	</div>
-	<div class="form-group">
-	{{ form.body.label }}:
-	{{ form.body(class="form-control body-text") }}
-	</div>
-	<div class="form-group">
-		<input type="submit" class="btn btn-success btn-block"
-			value="{% if post %}Save{% else %}Create{% endif %}" />
-	</div>
+    {{ form.hidden_tag() }}
+    <div class="row">
+        <div class="form-group col-md-9">
+        {{ form.title.label }}:
+        {{ form.title(class="form-control") }}
+        </div>
+        <div class="form-group col-md-3">
+        {{ form.category.label }}:
+        {{ form.category(class="form-control") }}
+        </div>
+    </div>
+    <div class="form-group">
+    {{ form.body.label }}:
+    {{ form.body(id="editor") }}
+    </div>
+    <div class="form-group">
+        <input type="submit" class="btn btn-success btn-block"
+            value="{% if post %}Save{% else %}Create{% endif %}" />
+    </div>
 </form>
 
 {% endblock %}
@@ -41,8 +41,8 @@
 <script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js"></script>
 <script>
 (function() {
-	var editor = new Editor();
-	editor.render();
+    var editor = new Editor();
+    editor.render();
 })();
 </script>
 
