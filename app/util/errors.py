@@ -5,10 +5,14 @@ class NoPostsFound(Exception):
     pass
 
 class InvalidCategory(Exception):
-	pass
+    pass
 
 class PostNotFound(Exception):
-	pass
+    pass
+
+class Unauthorized(Exception):
+    pass
+
 
 @app.errorhandler(NoPostsFound)
 def no_posts_found(e):
@@ -27,3 +31,9 @@ def post_not_found(e):
     """Custom errorhandler that renders a '404
     post not found' error template."""
     return render_template('errorpages/404.html', message=e), 404
+
+@app.errorhandler(Unauthorized)
+def unauthorized(e):
+    """Custom errorhandler that renders a '401
+    unauthorized' error template."""
+    return render_template('errorpages/401.html', message=e), 401

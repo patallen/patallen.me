@@ -4,7 +4,7 @@ from app.models import Post, Category
 from flask import abort, Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
 from .forms import PostForm, DeleteForm
-from app.util.errors import NoPostsFound, InvalidCategory, PostNotFound
+from app.util.errors import NoPostsFound, InvalidCategory, PostNotFound, Unauthorized
 
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
@@ -110,7 +110,7 @@ def editPost(post_slug):
     post = Post.query.filter_by(slug=post_slug).one()
     # Check that user is the owner of the project (not necessary atm)
     if current_user.id != post.author:
-        return "You do not have permission to edit this blog post."
+        raise Unauthorized("You don't have permission to edit this post.") 
     form = PostForm()
     form.category.choices = [(c.id, c.name) for c in Category.query.all()]
     if form.validate_on_submit():
@@ -134,7 +134,7 @@ def deletePost(post_slug):
     """Route to delete an existing blog post"""
     post = Post.query.filter_by(slug=post_slug).one()
     if current_user.id != post.author:
-        return "You do not have permission to delete this post."
+        raise Unauthorized("You don't have permission to delete this post.") 
     form = DeleteForm()
     if form.validate_on_submit():
         db.session.delete(post)
