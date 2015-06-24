@@ -24,11 +24,11 @@ Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 - [ ] Use flask-admin as admin interface
 - [ ] Views for projects/post deletion
 - [ ] Hide post / save as draft functionality
-- [ ] Add and Edit buttons for projects when logged in
 - [ ] Create and add favicon
 - [ ] Implement image uploads for projects
 - [ ] Use flask-images for server-side resizing
 - [ ] Make everything Pretty
+- [x] Add and Edit buttons for projects when logged in
 - [x] Add/Edit projects functionality
 - [x] Add markdown editor.
 - [x] Slugs for blog posts
