@@ -9,7 +9,7 @@
 		
 	</div>
 	<div class="col-md-9 col-xs-12">
-	{% for post in posts %}
+	{% for post in pagination.items %}
 		<div class="post">
 			<div class="post-header">
 				<h2><a href="{{ url_for('blog.post', post_slug=post.slug)}}">{{ post.title }}</a></h2>
@@ -42,14 +42,14 @@
 		</div>
 	{% endfor %}
 		<div class="pagination text-center">
-			{% if pagination.hasPrev() %}
+			{% if pagination.has_prev %}
 			<a class="page-arrow btn btn-default" href="{{ url_for('blog.home', category_slug=category_slug, page=pagination.page-1) }}">prev</a>
 			{% endif %}
 			<div class="page-status">
-			Page {{ pagination.page }} of {{ pagination.numPages }}
+			Page {{ pagination.page }} of {{ pagination.pages }}
 			</div>
 
-			{% if pagination.hasNext() %}
+			{% if pagination.has_next %}
 			<a class="page-arrow btn btn-default" href="{{ url_for('blog.home', category_slug=category_slug, page=pagination.page+1) }}">next</a>
 			{% endif %}
 		</div>

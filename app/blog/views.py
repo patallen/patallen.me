@@ -1,5 +1,4 @@
 from app import db
-from app.helpers import Pagination
 from app.models import Post, Category
 from flask import abort, Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
@@ -9,29 +8,7 @@ from app.util.errors import NoPostsFound, InvalidCategory, PostNotFound, Unautho
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
 
-POSTS_PER_PAGE = 5.0
-
-
-def filterPostsByCategory(category_slug):
-    """Returns a Post query set filtered by category_slug"""
-    return Post.query.filter(Post.category.has(Category.slug == category_slug))
-
-
-def getPostsForPage(page, posts_per_page, category_slug=''):
-    """Gets posts for home blog page -- category_slug is optional"""
-    postQuery = Post.query
-    # Filter by category_slug if it exists
-    if category_slug:
-        postQuery = filterPostsByCategory(category_slug)
-    # Return resulting query offset & limited for given page
-    posts = postQuery.order_by(Post.date_created.desc())\
-                    .offset(posts_per_page * page - posts_per_page)\
-                    .limit(posts_per_page)
-    if len(posts.all()) < 1:
-        if category_slug:
-            raise NoPostsFound("No posts were found for this category.")
-        raise NoPostsFound("It seems there are no posts in the database :(")
-    return posts 
+POSTS_PER_PAGE = 5
 
 
 def getNumPosts(category_slug=None):
@@ -55,19 +32,20 @@ def home(category_slug=None):
     # If no such category, raise exception
     if category_slug:
         try:
-            Category.query.filter_by(slug=category_slug).one()
+            category = Category.query.filter_by(slug=category_slug).one()
         except:
             raise InvalidCategory("The specified category does not exist.")
+    
+    page = request.args.get('page', 1)
+    query = Post.query
+    if category_slug:
+        query = Post.query.filter_by(category=category)
 
-    page = 1
-    if request.args.get('page'):
-        page = int(request.args.get('page'))
-    count = getNumPosts(category_slug)
-    posts = getPostsForPage(page, POSTS_PER_PAGE, category_slug=category_slug)
-    pagination = Pagination(page, count, POSTS_PER_PAGE)
+    pagination = query.order_by(Post.date_created.desc()).paginate(int(page), POSTS_PER_PAGE, False)
 
-    return render_template('blog/home.html', posts=posts,
-                           pagination=pagination, category_slug=category_slug)
+    return render_template('blog/home.html',
+                           category_slug=category_slug,
+                           pagination=pagination)
 
 
 @blog.route('/post/<post_slug>/')
