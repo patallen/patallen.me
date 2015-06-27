@@ -11,14 +11,6 @@ blog = Blueprint('blog', __name__, url_prefix='/blog')
 POSTS_PER_PAGE = 5
 
 
-def getNumPosts(category_slug=None):
-    """Gets total number of posts or total number of posts
-    within a specific category if category_slug provided"""
-    if category_slug:
-        return filterPostsByCategory(category_slug).count()
-    return Post.query.count()
-
-
 @blog.context_processor
 def category_processor():
     """Makes categories available to templates"""
