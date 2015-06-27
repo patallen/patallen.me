@@ -1,0 +1,43 @@
+{% macro paginate(page_obj) -%}
+{% set args = request.view_args %}
+{% if args['page'] %}
+	{% set _ = args.pop('page') %}
+{% endif %}
+
+<nav class="text-center">
+	<ul class="pagination">
+		{% if page_obj.has_prev %}
+		<li>
+			<a href="{{ url_for(request.endpoint, page=page_obj.prev_num, **args) }}">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		{% else %}
+		<li class="disabled">
+			<span aria-hidden="grue">&laquo;</span>
+		</li>
+		{% endif %}
+		{% for page in page_obj.iter_pages() %}
+			{% if page != page_obj.page %}
+			<li>
+				<a href="{{ url_for(request.endpoint, page=page, **args) }}">{{ page }}</a>
+			{% else %}
+			<li class="active">
+				<a href="">{{ page }}</a>
+			{% endif %}
+			</li>
+		{% endfor %}
+		{% if page_obj.has_next %}
+		<li>
+			<a href="{{ url_for(request.endpoint, page=page_obj.next_num, **args) }}">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+		{% else %}
+		<li class="disabled">
+			<span aria-hidden="true">&raquo;</span>
+		</li>
+		{% endif %}
+	</ul>
+</nav>
+{%- endmacro %}

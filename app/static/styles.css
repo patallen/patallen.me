@@ -14,10 +14,6 @@ body{
 	color: tomato;
 }
 
-.single-post-header{
-
-}
-
 .post {
 	padding-bottom: 10px;
 }
@@ -37,9 +33,6 @@ body{
 	padding-left: 10px;
 }
 
-.pagination {
-	display: block;
-}
 .page-arrow {
 	margin: 0 20px;
 	padding: 8;
@@ -194,6 +187,7 @@ body{
 	font-size: 1.2em;
 	color: tomato;
 }
+
 .hll { background-color: #ffffcc }
 .c { color: #999988; font-style: italic } /* Comment */
 .err { color: #a61717; background-color: #e3d2d2 } /* Error */
