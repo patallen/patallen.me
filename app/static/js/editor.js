@@ -1,5 +1,6 @@
 var editor = new EpicEditor({
     container: 'epiceditor',
+    clientSideStorage: false,
     autogrow: true,
     textarea: 'text-area-editor',
     theme: {
