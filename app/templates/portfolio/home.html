@@ -12,27 +12,24 @@
 </div>
 <hr>
 {% for project in projects %}
-	<div class="row">
-		<div class="col-md-4">
-			<img class="img-responsive" src="{{ project.img_url }}">
-		</div>
-		<div class="col-md-8">
-			<div class="row">
-			<div class="col-xs-10">
-		<h3>{{ project.title }}</h3>
-			</div>
-			<div class="col-xs-2">
-				{% if current_user.id == project.owner %}
-				<a href="{{ url_for('portfolio.editProject', project_id=project.id)}}">Edit</a>
-				{% endif %}
-			</div>
-			</div>
+<div class="row project-container">
+	<!-- Website screenshot -->
+	<div class="col-md-4">
+		<img class="img-responsive" src="{{ project.img_url }}">
+	</div>
+
+	<!-- Project Description -->
+	<div class="col-md-8">
+		<h3 class="text-center">{{ project.title }}</h3>
 		<strong>Description:</strong>
 		<p>{{ project.description }}</p>
 		<strong>Stack:</strong> {{ project.stack }}
 		<a class="pull-right" href="{{ project.github_url }}">View on GitHub</a>
-		</div>
+		{% if current_user.id == project.owner %}
+			<a href="{{ url_for('portfolio.editProject', project_id=project.id)}}">Edit</a>
+		{% endif %}
 	</div>
+</div>
 {% endfor %}
 
 {% endblock %}
