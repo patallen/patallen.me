@@ -10,7 +10,7 @@ portfolio = Blueprint('portfolio', __name__, url_prefix='/portfolio')
 @portfolio.route('/')
 def home():
 	"""Main portfolio page - displays list of projects"""
-	projects = Project.query.all()
+	projects = Project.query.order_by(Project.order_num.desc()).all()
 	return render_template('portfolio/home.html', projects=projects)
 
 
