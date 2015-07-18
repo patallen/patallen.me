@@ -28,6 +28,8 @@ def addProject():
 		project.stack = form.stack.data
 		project.github_url = form.github_url.data
 		project.img_url = form.image_url.data
+		project.live_url = form.live_url.data
+		project.order_num = form.order_num.data
 		db.session.add(project)
 		db.session.commit()
 
@@ -53,6 +55,8 @@ def editProject(project_id):
 		project.stack = form.stack.data
 		project.github_url = form.github_url.data
 		project.img_url = form.image_url.data
+		project.live_url = form.live_url.data
+		project.order_num = form.order_num.data
 		db.session.add(project)
 		db.session.commit()
 
@@ -64,5 +68,7 @@ def editProject(project_id):
 	form.description.data = project.description
 	form.stack.data = project.stack
 	form.github_url.data = project.github_url
+	form.order_num.data = project.order_num
+	form.live_url.data = project.live_url
 
 	return render_template('portfolio/compose.html', form=form, project_id=project_id)

@@ -9,17 +9,27 @@
 <form method="POST" action="{{ url_for('portfolio.addProject') }}">
 {% endif %}
 {{ form.hidden_tag() }}
-<div class="form-group">
-{{ form.title.label }}:
-{{ form.title(class="form-control") }}
+<div class="row">
+	<div class="form-group col-md-10">
+	{{ form.title.label }}:
+	{{ form.title(class="form-control") }}
+	</div>
+	<div class="form-group col-md-2">
+	{{ form.order_num.label }}:
+	{{ form.order_num(class="form-control") }}
+	</div>
 </div>
 <div class="row">
-	<div class="form-group col-md-6">
+	<div class="form-group col-md-4">
 	{{ form.image_url.label }}:
 	{{ form.image_url(class="form-control") }}
 	</div>
-	<div class="form-group col-md-6">
-	{{ form.stack.label }}:
+	<div class="form-group col-md-4">
+	{{ form.live_url.label }}
+	{{ form.live_url(class="form-control") }}
+	</div>
+	<div class="form-group col-md-4">
+	{{ form.stack.label }}
 	{{ form.stack(class="form-control") }}
 	</div>
 </div>
