@@ -2,7 +2,7 @@
 {% block content %}
 <div class="row">
 	<div class="col-md-6">
-	<h2>What have I done?</h2>
+	<h2>What I've Been Up To</h2>
 	</div>
 	<div class="col-md-6">
 		{% if current_user.is_authenticated() %}
@@ -12,23 +12,44 @@
 </div>
 <hr>
 {% for project in projects %}
-<div class="row project-container">
-	<!-- Website screenshot -->
-	<div class="col-md-4">
-		<img class="img-responsive" src="{{ project.img_url }}">
-	</div>
-
-	<!-- Project Description -->
-	<div class="col-md-8">
-		<h3 class="text-center">{{ project.title }}</h3>
-		<strong>Description:</strong>
-		<p>{{ project.description }}</p>
-		<strong>Stack:</strong> {{ project.stack }}
-		<a class="pull-right" href="{{ project.github_url }}">View on GitHub</a>
-		{% if current_user.id == project.owner %}
-			<a href="{{ url_for('portfolio.editProject', project_id=project.id)}}">Edit</a>
-		{% endif %}
-	</div>
+<div class="project col-md-6 col-sm-12">
+    <div class="project-img" style="background-image: url({{ project.img_url }})">
+		<a href="{{ project.live_url }}" class="link-overlay"></a>
+		<div class="project-overlay">
+			<div class="project-desc">
+				<h3 class="text-center">
+					{% if project.live_url %}
+					<a href="{{ project.live_url }}">{{ project.title }}</a>
+					{% else %}
+					{{ project.title }}
+					{% endif %}
+				</h3>
+				<p class="description">
+				{{ project.description }}
+				</p>
+				<div class="row project-info text-center">
+					<div class="col-sm-6">
+						<strong>Stack</strong>
+						<p>{{ project.stack }}</p>
+					</div>
+					<div class="col-sm-6">
+						<strong>Links</strong>
+						<p>
+						{% if project.github_url %}
+						<a href="{{ project.github_url}}"><i class="fa fa-2x fa-github-square"></i></a>
+						{% endif %}
+						{% if project.live_url %}
+						<a href="{{ project.live_url }}"><i class="fa fa-2x fa-globe"></i></a>
+						{% endif %}
+						{% if project.blog_slug %}
+						<a href="{{ url_for('blog.home', slug=project.blog_slug) }}"><i class="fa fa-2x fa-pencil-square-o"></i></a>
+						{% endif %}
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+    </div>
 </div>
 {% endfor %}
 

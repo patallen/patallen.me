@@ -71,13 +71,8 @@ class Project(db.Model):
     img_url = db.Column(db.String(300))
     date_completed = db.Column(db.Date)
     order_num = db.Column(db.Integer, default=0)
+    # TODO: Add blog_slug to link to related blog post
 
-#    def __init__(self, owner, title, description, stack, project_url):
-#        self.owner = owner
-#        self.title = title
-#        self.description = description
-#        self.stack = stack
-#        self.project_url = project_url
 
 
 class Category(db.Model):
