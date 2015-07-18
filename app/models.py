@@ -67,8 +67,10 @@ class Project(db.Model):
     description = db.Column(db.String(500))
     stack = db.Column(db.String(1000))
     github_url = db.Column(db.String(1000))
+    live_url = db.Column(db.String(1000))
     img_url = db.Column(db.String(300))
     date_completed = db.Column(db.Date)
+    order_num = db.Column(db.Integer, default=0)
 
 #    def __init__(self, owner, title, description, stack, project_url):
 #        self.owner = owner
