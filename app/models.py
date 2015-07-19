@@ -81,7 +81,5 @@ class Category(db.Model):
     name = db.Column(db.String(60), nullable=False)
     slug = db.Column(db.String(), unique=True)
 
-    def __init__(self, name, description=None):
-        self.name = name
-        self.description = description
-        self.slug = helpers.createSlug(name)
+    def __unicode__(self):
+        return self.slug

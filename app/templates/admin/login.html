@@ -2,7 +2,7 @@
 
 {% block content %}
 <h3>Log in</h3>
-<form method="POST" action="{{url_for('admin.login')}}">
+<form method="POST" action="{{url_for('adminbp.login')}}">
 {{ form.hidden_tag() }}
 <div class="form-group">
 {{ form.nickname.label }}:
