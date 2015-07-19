@@ -43,16 +43,17 @@ class User(db.Model):
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    author = db.Column(db.Integer, db.ForeignKey('user.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     slug = db.Column(db.String(), unique=True)
     title = db.Column(db.String(240), nullable=False)
     body_md  = db.Column(db.String(), nullable=False)
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
+    author = db.relationship('User')
     category = db.relationship('Category')
 
-    def __init__(self, author, category_id, title, body_md):
+    def __init__(self, author=1, category_id='', title='', body_md=''):
         self.title = title
         self.category_id = category_id
         self.author = author

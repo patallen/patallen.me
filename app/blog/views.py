@@ -60,7 +60,7 @@ def addPost():
     form.category.choices.insert(0, (0, 'Select...'))
 
     if form.validate_on_submit():
-        author = current_user.id
+        author = current_user
         title = form.title.data
         body_md = form.body.data
         category = form.category.data
@@ -79,7 +79,7 @@ def editPost(post_slug):
     """Edit an existing blog post"""
     post = Post.query.filter_by(slug=post_slug).one()
     # Check that user is the owner of the project (not necessary atm)
-    if current_user.id != post.author:
+    if current_user != post.author:
         raise Unauthorized("You don't have permission to edit this post.") 
     form = PostForm()
     form.category.choices = [(c.id, c.name) for c in Category.query.all()]
@@ -103,7 +103,7 @@ def editPost(post_slug):
 def deletePost(post_slug):
     """Route to delete an existing blog post"""
     post = Post.query.filter_by(slug=post_slug).one()
-    if current_user.id != post.author:
+    if current_user != post.author:
         raise Unauthorized("You don't have permission to delete this post.") 
     form = DeleteForm()
     if form.validate_on_submit():
