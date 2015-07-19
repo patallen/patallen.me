@@ -2,7 +2,18 @@ from app import db
 from app.models import *
 
 categories=[
-        {"name": "Projects"},{"name": "News"},{"name": "Life"}
+{
+    'name': 'Projects',
+    'slug': 'projects'
+},
+{
+    'name': 'Code',
+    'slug': 'code'
+},
+{
+    'name': 'Random',
+    'slug': 'random'
+}
 ]
 
 def deleteAll():
@@ -21,7 +32,9 @@ def deleteAll():
 
 def createCategories():
     for cat in categories:
-        db.session.add(Category(cat['name']))
+        name = cat['name']
+        slug = cat['slug'] 
+        db.session.add(Category(name=name, slug=slug))
         db.session.commit()
 
 if __name__ == '__main__':
