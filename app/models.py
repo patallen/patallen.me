@@ -1,11 +1,6 @@
-from sqlalchemy import event
-from datetime import datetime
-from markdown import markdown
-from app import helpers
-import re
-from app import bcrypt
-from app import db
+from app import helpers, bcrypt, db
 from sqlalchemy.ext.hybrid import hybrid_property
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -40,6 +35,9 @@ class User(db.Model):
     def is_anonymous(self):
         return False
 
+    def __unicode__(self):
+        return self.nickname
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -47,18 +45,21 @@ class Post(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     slug = db.Column(db.String(), unique=True)
     title = db.Column(db.String(240), nullable=False)
-    body_md  = db.Column(db.String(), nullable=False)
+    body_md = db.Column(db.String(), nullable=False)
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
     author = db.relationship('User')
     category = db.relationship('Category')
 
-    def __init__(self, author=1, category_id='', title='', body_md=''):
+    def __init__(self, author=None, category_id='', title='', body_md=''):
         self.title = title
         self.category_id = category_id
         self.author = author
         self.body_md = body_md
         self.slug = helpers.createSlug(title)
+
+    def __unicode__(self):
+        return self.title
 
 
 class Project(db.Model):
@@ -74,6 +75,8 @@ class Project(db.Model):
     order_num = db.Column(db.Integer, default=0)
     # TODO: Add blog_slug to link to related blog post
 
+    def __unicode__(self):
+        return self.title
 
 
 class Category(db.Model):
