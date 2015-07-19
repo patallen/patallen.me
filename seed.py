@@ -55,10 +55,6 @@ def deleteAll():
         db.session.delete(project)
         db.session.commit()
 
-    for post in Post.query.all():
-        db.session.delete(post)
-        db.session.commit()
-
     for cat in Category.query.all():
         db.session.delete(cat)
         db.session.commit()
