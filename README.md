@@ -3,17 +3,17 @@ This is the repository for code for my personal website, patallen.me.
 
 ### Set up repo and environment
 
-1. `git clone https://github.com/patallen/patallen.me`
-1. `cd patallen.me`
-1. `virtualenv venv && . venv/bin/activate` (python 2.7)
-1. `pip install -r requirements.txt`
+1. `$ git clone https://github.com/patallen/patallen.me`
+1. `$ cd patallen.me`
+1. `$ virtualenv venv && . venv/bin/activate` (python 2.7)
+1. `$ pip install -r requirements.txt`
 
 ### Set up the database
 Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 
-1. `python manage.py db upgrade`
-1. 'python manage.py createsuperuser'
-1. `python seed.py`
+1. `$ python manage.py db upgrade`
+1. `$ python manage.py createsuperuser`
+1. `$ python seed.py`
 
 ### Create and link PATALLENME_SETTINGS
 1. create a `patallenme_settings.py` and place it somewhere
