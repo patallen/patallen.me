@@ -73,7 +73,10 @@ class Project(db.Model):
     img_url = db.Column(db.String(300))
     date_completed = db.Column(db.Date)
     order_num = db.Column(db.Integer, default=0)
-    # TODO: Add blog_slug to link to related blog post
+
+    # Each Project can have a related blog post
+    blog_post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
+    blog_post = db.relationship('Post')
 
     def __unicode__(self):
         return self.title
