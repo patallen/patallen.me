@@ -1,7 +1,9 @@
 from flask import Blueprint, redirect, render_template, url_for
-from app.models import Project, Post
 from .forms import ProjectForm
 from flask_login import current_user, login_required
+
+from app.models import Project
+from app.util.errors import PostNotFound
 from app import db
 
 portfolio = Blueprint('portfolio', __name__, url_prefix='/portfolio')
@@ -35,11 +37,16 @@ def addProject():
 @login_required
 def editProject(project_id):
     """Edit an existing portfolio project"""
-    project = Project.query.get(project_id)
+    try:
+        project = Project.query.filter_by(id=project_id).one()
+    except:
+        # TODO: Generalize PostNotFound (maybe 'ItemNotFound')
+        raise PostNotFound("The project you are looking for could not be found.")
+
     # Check that user is the owner of the project (not necessary atm)
     if current_user.id != project.owner:
         return "You do not have permission to edit this project."
-    
+
     # Create the form and set it's values based
     # on what is in the DB for the specified form
     form = ProjectForm(obj=project)
