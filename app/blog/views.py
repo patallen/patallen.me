@@ -3,7 +3,8 @@ from app.models import Post, Category
 from flask import Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
 from .forms import PostForm, DeleteForm
-from app.util.errors import InvalidCategory, PostNotFound, Unauthorized
+from app.util.errors import Unauthorized
+from app.util.functions import get_or_404
 
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
@@ -23,10 +24,7 @@ def home(category_slug=None):
     """Blog home function - takes page number"""
     # If no such category, raise exception
     if category_slug:
-        try:
-            category = Category.query.filter_by(slug=category_slug).one()
-        except:
-            raise InvalidCategory("The specified category does not exist.")
+        category = get_or_404(Category, slug=category_slug)
 
     page = request.args.get('page', 1)
     query = Post.query
@@ -44,10 +42,8 @@ def home(category_slug=None):
 @blog.route('/post/<post_slug>/')
 def post(post_slug):
     """Return a post by its slug"""
-    try:
-        post = Post.query.filter_by(slug=post_slug).one()
-    except:
-        raise PostNotFound("The post you are looking for could not be found.")
+    post = get_or_404(Post, slug=post_slug)
+
     return render_template('blog/post.html', post=post,
                            category_slug=post.category.slug)
 
@@ -76,12 +72,8 @@ def addPost():
 @login_required
 def editPost(post_slug):
     """Edit an existing blog post"""
-    try:
-        post = Post.query.filter_by(slug=post_slug).one()
-    except:
-        raise PostNotFound("The post you are looking for could not be found.")
+    post = get_or_404(Post, slug=post_slug)
 
-    # Check that user is the owner of the project (not necessary atm)
     if current_user != post.author:
         raise Unauthorized("You don't have permission to edit this post.")
 
@@ -100,10 +92,7 @@ def editPost(post_slug):
 @login_required
 def deletePost(post_slug):
     """Route to delete an existing blog post"""
-    try:
-        post = Post.query.filter_by(slug=post_slug).one()
-    except:
-        raise PostNotFound("The post you are looking for could not be found.")
+    post = get_or_404(Post, slug=post_slug)
 
     if current_user != post.author:
         raise Unauthorized("You don't have permission to delete this post.")
