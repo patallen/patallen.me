@@ -56,14 +56,12 @@ def post(post_slug):
 def addPost():
     """Return add post form or process new blog post"""
     form = PostForm()
-    form.category_id.choices = [(c.id, c.name) for c in Category.query.all()]
-    form.category_id.choices.insert(0, (0, 'Select...'))
 
     if form.validate_on_submit():
         author = current_user
         title = form.title.data
         body_md = form.body_md.data
-        category = form.category_id.data
+        category = form.category.data
         post = Post(author, category, title, body_md)
         db.session.add(post)
         db.session.commit()
@@ -83,7 +81,6 @@ def editPost(post_slug):
         raise Unauthorized("You don't have permission to edit this post.") 
 
     form = PostForm(obj=post)
-    form.category_id.choices = [(c.id, c.name) for c in Category.query.all()]
 
     if form.validate_on_submit():
         form.populate_obj(post)
@@ -92,6 +89,7 @@ def editPost(post_slug):
         return redirect(url_for('blog.post', post_slug=post.slug))
 
     return render_template('blog/compose.html', form=form, post=post)
+
 
 @blog.route('/post/<post_slug>/delete/', methods=['GET', 'POST'])
 @login_required
