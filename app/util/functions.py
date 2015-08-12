@@ -1,4 +1,4 @@
-from app.util.errors import PostNotFound
+from app.util.errors import ResourceNotFound
 
 
 def get_or_404(model, **kwargs):
@@ -9,5 +9,5 @@ def get_or_404(model, **kwargs):
     """
     obj = model.query.filter_by(**kwargs).first()
     if obj is None:
-        raise PostNotFound('{} cannot be found.'.format(model.__name__))
+        raise ResourceNotFound('{} cannot be found.'.format(model.__name__))
     return obj
