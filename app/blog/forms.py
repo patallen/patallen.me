@@ -6,8 +6,8 @@ from wtforms.validators import DataRequired
 class PostForm(Form):
 	"""WTForm for creating/editing blog post"""
 	title = StringField('Title', validators=[DataRequired()])
-	body = TextAreaField('Body', validators=[DataRequired()])
-	category = SelectField('Category', validators=[DataRequired()], coerce=int)
+	body_md = TextAreaField('Body', validators=[DataRequired()])
+	category_id = SelectField('Category', validators=[DataRequired()], coerce=int)
 
 class DeleteForm(Form):
 	"""WTForm for deleting a blog post"""

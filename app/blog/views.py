@@ -56,14 +56,14 @@ def post(post_slug):
 def addPost():
     """Return add post form or process new blog post"""
     form = PostForm()
-    form.category.choices = [(c.id, c.name) for c in Category.query.all()]
-    form.category.choices.insert(0, (0, 'Select...'))
+    form.category_id.choices = [(c.id, c.name) for c in Category.query.all()]
+    form.category_id.choices.insert(0, (0, 'Select...'))
 
     if form.validate_on_submit():
         author = current_user
         title = form.title.data
-        body_md = form.body.data
-        category = form.category.data
+        body_md = form.body_md.data
+        category = form.category_id.data
         post = Post(author, category, title, body_md)
         db.session.add(post)
         db.session.commit()
@@ -81,20 +81,15 @@ def editPost(post_slug):
     # Check that user is the owner of the project (not necessary atm)
     if current_user != post.author:
         raise Unauthorized("You don't have permission to edit this post.") 
-    form = PostForm()
-    form.category.choices = [(c.id, c.name) for c in Category.query.all()]
+
+    form = PostForm(obj=post)
+    form.category_id.choices = [(c.id, c.name) for c in Category.query.all()]
+
     if form.validate_on_submit():
-        post.title = form.title.data
-        post.body_md = form.body.data
-        post.category_id = form.category.data
+        form.populate_obj(post)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('blog.post', post_slug=post.slug))
-
-    # Pre-populate form with existing data
-    form.title.data = post.title
-    form.body.data = post.body_md
-    form.category.data = post.category_id
 
     return render_template('blog/compose.html', form=form, post=post)
 
