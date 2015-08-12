@@ -19,7 +19,6 @@ def home():
 def addProject():
     """Add a portfolio project"""
     form = ProjectForm()
-    form.blog_post_id.choices = [(p.id, p.title) for p in Post.query.all()]
 
     if form.validate_on_submit():
         project = Project()
@@ -40,9 +39,10 @@ def editProject(project_id):
     # Check that user is the owner of the project (not necessary atm)
     if current_user.id != project.owner:
         return "You do not have permission to edit this project."
-
+    
+    # Create the form and set it's values based
+    # on what is in the DB for the specified form
     form = ProjectForm(obj=project)
-    form.blog_post_id.choices = [(p.id, p.title) for p in Post.query.all()]
 
     if form.validate_on_submit():
         form.populate_obj(project)
