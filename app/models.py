@@ -91,4 +91,4 @@ class Category(db.Model):
     slug = db.Column(db.String(), unique=True)
 
     def __unicode__(self):
-        return self.slug
+        return self.name
