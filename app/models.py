@@ -71,8 +71,10 @@ class Project(db.Model):
     github_url = db.Column(db.String(1000))
     live_url = db.Column(db.String(1000))
     img_url = db.Column(db.String(300))
-    date_completed = db.Column(db.Date)
     order_num = db.Column(db.Integer, default=0)
+
+    # Currently not used in forms
+    date_completed = db.Column(db.Date)
 
     # Each Project can have a related blog post
     blog_post_id = db.Column(db.Integer, db.ForeignKey('post.id'))

@@ -7,9 +7,9 @@ class ProjectForm(Form):
     """WTForm for creating/editing portfolio project"""
     title = StringField('Title', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
-    blog_post = SelectField('Blog Post', validators=[Optional()])
     stack = StringField('Stack')
     github_url = StringField('Github URL', validators=[Optional(), URL()])
     live_url = StringField('Live URL', validators=[Optional(), URL()])
+    img_url = StringField('Image URL', validators=[URL()])
     order_num = IntegerField('Order Number')
-    image_url = StringField('Image URL', validators=[URL()])
+    blog_post_id = SelectField('Blog Post', validators=[Optional()], coerce=int)

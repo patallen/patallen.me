@@ -19,20 +19,14 @@ def home():
 def addProject():
     """Add a portfolio project"""
     form = ProjectForm()
+    form.blog_post_id.choices = [(p.id, p.title) for p in Post.query.all()]
 
     if form.validate_on_submit():
         project = Project()
         project.owner = current_user.id
-        project.title = form.title.data
-        project.description = form.description.data
-        project.stack = form.stack.data
-        project.github_url = form.github_url.data
-        project.img_url = form.image_url.data
-        project.live_url = form.live_url.data
-        project.order_num = form.order_num.data
+        form.populate_obj(project)
         db.session.add(project)
         db.session.commit()
-
         return redirect(url_for('portfolio.home'))
 
     return render_template('portfolio/compose.html', form=form)
@@ -47,31 +41,14 @@ def editProject(project_id):
     if current_user.id != project.owner:
         return "You do not have permission to edit this project."
 
-    form = ProjectForm()
+    form = ProjectForm(obj=project)
+    form.blog_post_id.choices = [(p.id, p.title) for p in Post.query.all()]
 
     if form.validate_on_submit():
-        project.title = form.title.data
-        project.description = form.description.data
-        project.stack = form.stack.data
-        project.github_url = form.github_url.data
-        project.img_url = form.image_url.data
-        project.live_url = form.live_url.data
-        project.order_num = form.order_num.data
+        form.populate_obj(project)
         db.session.add(project)
         db.session.commit()
-
         return redirect(url_for('portfolio.home'))
-
-    # Pre-populate form with existing data
-    form.blog_post.choices = [(p.id, p.title) for p in Post.query.all()]
-    form.blog_post.data = project.blog_post
-    form.image_url.data = project.img_url
-    form.title.data = project.title
-    form.description.data = project.description
-    form.stack.data = project.stack
-    form.github_url.data = project.github_url
-    form.order_num.data = project.order_num
-    form.live_url.data = project.live_url
 
     return render_template('portfolio/compose.html',
                            form=form,
