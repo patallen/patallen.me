@@ -41,8 +41,11 @@
 						{% if project.live_url %}
 						<a href="{{ project.live_url }}"><i class="fa fa-2x fa-globe"></i></a>
 						{% endif %}
-						{% if project.blog_slug %}
-						<a href="{{ url_for('blog.home', slug=project.blog_slug) }}"><i class="fa fa-2x fa-pencil-square-o"></i></a>
+						{% if project.blog_post %}
+						<a href="{{ url_for('blog.post', post_slug=project.blog_post.slug) }}"><i class="fa fa-2x fa-pencil-square-o"></i></a>
+						{% endif %}
+						{% if project.owner == current_user.id %}
+						<a href="{{ url_for('portfolio.editProject', project_id=project.id) }}"><i class="fa fa-2x fa-pencil"></i></a>
 						{% endif %}
 						</p>
 					</div>
