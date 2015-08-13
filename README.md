@@ -21,14 +21,15 @@ Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 1. `export PATALLENME_SETTINGS=~/location/to/patallenme_settings.py`
 
 ### Todo:
-- [ ] Add owner relationship to Project
-- [ ] Use flask-admin as admin interface
+- [ ] Ajax for Deletion
 - [ ] Views for projects/post deletion
 - [ ] Hide post / save as draft functionality
 - [ ] Create and add favicon
 - [ ] Implement image uploads for projects
 - [ ] Use flask-images for server-side resizing
 - [ ] Make everything Pretty
+- [x] Add owner relationship to Project
+- [x] Use flask-admin as admin interface
 - [x] Add blog_post as option on Project form
 - [x] Add and Edit buttons for projects when logged in
 - [x] Add/Edit projects functionality

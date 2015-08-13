@@ -11,13 +11,14 @@ bcrypt = Bcrypt(app)
 Markdown(app, extensions=['fenced_code', 'codehilite', 'tables'])
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view='admin.login'
+login_manager.login_view = 'adminbp.login'
 
-# Import Blueprints 
+# Import Blueprint
 from app.admin.views import adminbp
 from app.blog.views import blog
 from app.portfolio.views import portfolio
-from app.about.views import about 
+from app.about.views import about
+
 # Register blueprints
 app.register_blueprint(adminbp)
 app.register_blueprint(blog)
