@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, url_for
+from flask import Blueprint, redirect, render_template, url_for, Response
 from .forms import ProjectForm
 from flask_login import current_user, login_required
 
@@ -40,7 +40,6 @@ def editProject(project_id):
     project = get_or_404(Project, id=project_id)
 
     # Check that user is the owner of the project (not necessary atm)
-    print(project.owner_id)
     if current_user != project.owner:
         return "You do not have permission to edit this project."
 
@@ -57,3 +56,19 @@ def editProject(project_id):
     return render_template('portfolio/compose.html',
                            form=form,
                            project_id=project_id)
+
+
+@portfolio.route('/<int:project_id>', methods=['DELETE'])
+@login_required
+def delete_project(project_id):
+    """View for deleting a project with an ajax delete method"""
+    project = get_or_404(Project, id=project_id)
+
+    if current_user != project.owner:
+        return Response("You do not have permission to edit this project.",
+                        status=401)
+
+    db.session.delete(project)
+    db.session.commit()
+
+    return Response('Delete Successful.', status=200)

@@ -21,7 +21,7 @@ Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 1. `export PATALLENME_SETTINGS=~/location/to/patallenme_settings.py`
 
 ### Todo:
-- [ ] Ajax for Deletion
+- [ ] Add javascript for Deletion
 - [ ] Views for projects/post deletion
 - [ ] Hide post / save as draft functionality
 - [ ] Create and add favicon
