@@ -12,7 +12,7 @@
 </div>
 <hr>
 {% for project in projects %}
-<div class="project col-md-6 col-sm-12">
+<div class="project col-md-6 col-sm-12" data-project-id="{{project.id}}">
     <div class="project-img" style="background-image: url({{ project.img_url }})">
 		<a href="{{ project.live_url }}" class="link-overlay"></a>
 		<div class="project-overlay">
@@ -46,6 +46,7 @@
 						{% endif %}
 						{% if project.owner == current_user %}
 						<a href="{{ url_for('portfolio.editProject', project_id=project.id) }}"><i class="fa fa-2x fa-pencil"></i></a>
+                        <a href="" class="delete-project-btn"><i class=" fa fa-2x fa-trash"></i></a>
 						{% endif %}
 						</p>
 					</div>
@@ -55,5 +56,8 @@
     </div>
 </div>
 {% endfor %}
-
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/ajax.js') }}"></script>
+{% endblock %}
 {% endblock %}
