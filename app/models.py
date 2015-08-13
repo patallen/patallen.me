@@ -65,6 +65,7 @@ class Post(db.Model):
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100))
+    slug = db.Column(db.String(64))
     description = db.Column(db.String(500))
     stack = db.Column(db.String(1000))
     github_url = db.Column(db.String(1000))
@@ -81,6 +82,7 @@ class Project(db.Model):
     # Each Project can have a related blog post
     blog_post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     blog_post = db.relationship('Post')
+
 
     def __unicode__(self):
         return self.title
