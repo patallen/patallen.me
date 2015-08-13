@@ -64,7 +64,6 @@ class Post(db.Model):
 
 class Project(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    owner = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(100))
     description = db.Column(db.String(500))
     stack = db.Column(db.String(1000))
@@ -75,6 +74,9 @@ class Project(db.Model):
 
     # Currently not used in forms
     date_completed = db.Column(db.Date)
+
+    owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    owner = db.relationship('User')
 
     # Each Project can have a related blog post
     blog_post_id = db.Column(db.Integer, db.ForeignKey('post.id'))

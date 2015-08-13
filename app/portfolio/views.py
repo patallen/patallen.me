@@ -24,7 +24,7 @@ def addProject():
 
     if form.validate_on_submit():
         project = Project()
-        project.owner = current_user.id
+        project.owner = current_user
         form.populate_obj(project)
         db.session.add(project)
         db.session.commit()
@@ -40,7 +40,8 @@ def editProject(project_id):
     project = get_or_404(Project, id=project_id)
 
     # Check that user is the owner of the project (not necessary atm)
-    if current_user.id != project.owner:
+    print(project.owner_id)
+    if current_user != project.owner:
         return "You do not have permission to edit this project."
 
     # Create the form and set it's values based
