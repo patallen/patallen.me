@@ -22,8 +22,8 @@ class ProjectForm(Form):
     stack = StringField('Stack')
     github_url = StringField('Github URL', validators=[Optional(), URL()])
     live_url = StringField('Live URL', validators=[Optional(), URL()])
-    img_url = StringField('Image URL', validators=[URL()])
-    order_num = IntegerField('Order Number')
+    img_url = StringField('Image URL', validators=[DataRequired(), URL()])
+    order_num = IntegerField('Order Number', validators=[Optional()])
     blog_post = QuerySelectField('Blog Post',
                                  query_factory=project_posts,
                                  allow_blank=True)
