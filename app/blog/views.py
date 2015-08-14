@@ -55,11 +55,9 @@ def addPost():
     form = PostForm()
 
     if form.validate_on_submit():
-        author = current_user
-        title = form.title.data
-        body_md = form.body_md.data
-        category = form.category.data
-        post = Post(author, category, title, body_md)
+        post = Post(title=form.title.data)
+        form.populate_obj(post)
+        post.author = current_user
         db.session.add(post)
         db.session.commit()
 

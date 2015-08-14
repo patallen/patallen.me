@@ -51,11 +51,7 @@ class Post(db.Model):
     author = db.relationship('User')
     category = db.relationship('Category')
 
-    def __init__(self, author=None, category_id='', title='', body_md=''):
-        self.title = title
-        self.category_id = category_id
-        self.author = author
-        self.body_md = body_md
+    def __init__(self, title=''):
         self.slug = helpers.createSlug(title)
 
     def __unicode__(self):
@@ -82,6 +78,7 @@ class Project(db.Model):
     # Each Project can have a related blog post
     blog_post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     blog_post = db.relationship('Post')
+
 
     def __unicode__(self):
         return self.title
