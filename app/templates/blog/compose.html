@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 {% if post %}
 <h3>Edit <em>{{ post.title }}</em></h3>
 {% else %}
@@ -17,6 +16,9 @@
     <div class="row">
         <div class="form-group col-md-9">
         {{ form.title.label }}:
+        {% for error in form.title.errors %}
+        <span class="alert-danger">{{ error }}</span>
+        {% endfor %}
         {{ form.title(class="form-control") }}
         </div>
         <div class="form-group col-md-3">
@@ -25,6 +27,9 @@
         </div>
     </div>
     <div class="form-group">
+        {% for error in form.body_md.errors %}
+        <span class="alert-danger">{{ error }}</span>
+        {% endfor %}
         <div id="epiceditor">
         {{ form.body_md(id="text-area-editor") }}
         </div>
