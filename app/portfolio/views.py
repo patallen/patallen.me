@@ -26,6 +26,7 @@ def addProject():
         project = Project()
         project.owner = current_user
         form.populate_obj(project)
+        project.slug = project.title.lower()
         db.session.add(project)
         db.session.commit()
         return redirect(url_for('portfolio.home'))

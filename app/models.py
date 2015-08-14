@@ -83,7 +83,6 @@ class Project(db.Model):
     blog_post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     blog_post = db.relationship('Post')
 
-
     def __unicode__(self):
         return self.title
 
