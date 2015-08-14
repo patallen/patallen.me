@@ -34,11 +34,11 @@ def addProject():
     return render_template('portfolio/compose.html', form=form)
 
 
-@portfolio.route('/<int:project_id>/edit/', methods=['GET', 'POST'])
+@portfolio.route('/<path:project_slug>/edit/', methods=['GET', 'POST'])
 @login_required
-def editProject(project_id):
+def editProject(project_slug):
     """Edit an existing portfolio project"""
-    project = get_or_404(Project, id=project_id)
+    project = get_or_404(Project, slug=project_slug)
 
     # Check that user is the owner of the project (not necessary atm)
     if current_user != project.owner:
@@ -56,7 +56,7 @@ def editProject(project_id):
 
     return render_template('portfolio/compose.html',
                            form=form,
-                           project_id=project_id)
+                           project_slug=project_slug)
 
 
 @portfolio.route('/<int:project_id>', methods=['DELETE'])
