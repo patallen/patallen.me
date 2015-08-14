@@ -41,3 +41,9 @@
 	</ul>
 </nav>
 {%- endmacro %}
+
+{% macro render_field_errors(field) -%}
+    {% for error in field.errors %}
+    <span class="alert-danger">{{ error }}</span>
+    {% endfor %}
+{%- endmacro %}
