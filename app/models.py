@@ -1,5 +1,7 @@
-from app import helpers, bcrypt, db
+from slugify import slugify
 from sqlalchemy.ext.hybrid import hybrid_property
+
+from app import bcrypt, db
 
 
 class User(db.Model):
@@ -53,7 +55,7 @@ class Post(db.Model):
     category = db.relationship('Category')
 
     def __init__(self, title=''):
-        self.slug = helpers.createSlug(title)
+        self.slug = slugify(title)
 
     def __unicode__(self):
         return self.title
