@@ -1,10 +1,11 @@
-from app import db
-from app.models import Post, Category
 from flask import Blueprint, redirect, render_template, url_for, request
 from flask_login import login_required, current_user
-from .forms import PostForm, DeleteForm
+
+from app import db
+from app.blog.forms import PostForm, DeleteForm
+from app.models import Post, Category
 from app.util.errors import Unauthorized
-from app.util.functions import get_or_404
+from app.util.functions import get_or_404, get_posts_query
 
 
 blog = Blueprint('blog', __name__, url_prefix='/blog')
@@ -22,15 +23,10 @@ def category_processor():
 @blog.route('/category/<category_slug>/')
 def home(category_slug=None):
     """Blog home function - takes page number"""
-    # If no such category, raise exception
-    if category_slug:
-        category = get_or_404(Category, slug=category_slug)
 
     page = request.args.get('page', 1)
-    query = Post.query
-    if category_slug:
-        query = Post.query.filter_by(category=category)
-
+    category = Category.query.filter_by(slug=category_slug).first()
+    query = get_posts_query(category)
     pagination = (query.order_by(Post.date_created.desc())
                        .paginate(int(page), POSTS_PER_PAGE, False))
 
