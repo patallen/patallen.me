@@ -4,7 +4,7 @@ from flask_login import login_required, current_user
 from app import db
 from app.blog.forms import PostForm, DeleteForm
 from app.models import Post, Category
-from app.util.errors import Unauthorized
+from app.util.errors import Unauthorized, ResourceNotFound
 from app.util.functions import get_or_404, get_posts_query
 
 
@@ -39,6 +39,12 @@ def home(category_slug=None):
 def post(post_slug):
     """Return a post by its slug"""
     post = get_or_404(Post, slug=post_slug)
+
+    # TODO: I feel this should be done in a
+    # Post-specific function
+    if post.author != current_user:
+        if not post.published:
+            raise ResourceNotFound('Post cannot be found.')
 
     return render_template('blog/post.html', post=post,
                            category_slug=post.category.slug)
