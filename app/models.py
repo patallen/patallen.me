@@ -46,6 +46,7 @@ class Post(db.Model):
     slug = db.Column(db.String(), unique=True)
     title = db.Column(db.String(240), nullable=False)
     body_md = db.Column(db.String(), nullable=False)
+    published= db.Column(db.Boolean(), default=False)
     date_created = db.Column(db.DateTime, default=db.func.now())
     date_updated = db.Column(db.DateTime, onupdate=db.func.now())
     author = db.relationship('User')
