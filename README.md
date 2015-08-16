@@ -21,10 +21,10 @@ Using flask-migrate to manage database migrations. Currently using PostgreSQL.
 1. `export PATALLENME_SETTINGS=~/location/to/patallenme_settings.py`
 
 ### Todo:
-- [ ] Create and add favicon
 - [ ] Implement image uploads for projects
 - [ ] Use flask-images for server-side resizing
 - [ ] Make everything Pretty
+- [x] Create and add favicon
 - [x] Hide post / save as draft functionality
 - [x] Views for projects/post deletion
 - [x] Form validation for blogs and projects
