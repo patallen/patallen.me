@@ -35,14 +35,14 @@
 					<div class="col-sm-6">
 						<strong>Links</strong>
 						<p>
+						{% if project.blog_post %}
+						<a href="{{ url_for('blog.post', post_slug=project.blog_post.slug) }}" title="Read More"><i class="fa fa-2x fa-info"></i></a>
+						{% endif %}
 						{% if project.github_url %}
-						<a href="{{ project.github_url}}"><i class="fa fa-2x fa-github-square"></i></a>
+						<a href="{{ project.github_url}}" title="View on Github"><i class="fa fa-2x fa-github-square"></i></a>
 						{% endif %}
 						{% if project.live_url %}
-						<a href="{{ project.live_url }}"><i class="fa fa-2x fa-globe"></i></a>
-						{% endif %}
-						{% if project.blog_post %}
-						<a href="{{ url_for('blog.post', post_slug=project.blog_post.slug) }}"><i class="fa fa-2x fa-pencil-square-o"></i></a>
+						<a href="{{ project.live_url }}" title="View Live Version"><i class="fa fa-2x fa-globe"></i></a>
 						{% endif %}
 						{% if project.owner == current_user %}
 						<a href="{{ url_for('portfolio.editProject', project_slug=project.slug) }}"><i class="fa fa-2x fa-pencil"></i></a>
