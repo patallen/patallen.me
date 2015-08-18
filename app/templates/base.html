@@ -53,6 +53,11 @@
 						<li {% if '/portfolio' in request.path %}class="active"{% endif %}>
 							<a href="{{ url_for('portfolio.home') }}">Portfolio</a>
 						</li>
+                        {% if current_user.is_authenticated() %}
+                        <li>
+                            <a href="{{ url_for('adminbp.logout') }}">Log Out</a>
+                        </li>
+                        {% endif %}
 					</ul>
 				</div>
 			</div>
