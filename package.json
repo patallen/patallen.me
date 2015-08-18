@@ -1,0 +1,26 @@
+{
+  "name": "patallen.me",
+  "version": "1.0.0",
+  "description": "Personal website of Patrick Allen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/patallen/patallen.me.git"
+  },
+  "author": "Patrick Allen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/patallen/patallen.me/issues"
+  },
+  "homepage": "https://github.com/patallen/patallen.me#readme",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-bower": "0.0.10",
+    "gulp-livereload": "^3.8.0",
+    "gulp-sass": "^2.0.4"
+  }
+}
