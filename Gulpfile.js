@@ -8,7 +8,7 @@ gulp.task('styles', function(){
     gulp.src('app/static/sass/**/*.sass')
         .pipe(sass().on('error', sass.logError))
         .pipe(autoprefixer('last 2 version'))
-        .pipe(gulp.dest('static/css/'))
+        .pipe(gulp.dest('app/static/css/'))
 		.pipe(livereload());
 });
 //gulp.task('bower', function(){
