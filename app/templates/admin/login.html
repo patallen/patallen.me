@@ -1,21 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h3>Log in</h3>
-<form method="POST" action="{{url_for('adminbp.login')}}">
-{{ form.hidden_tag() }}
-<div class="form-group">
-{{ form.nickname.label }}:
-{{ form.nickname(class="form-control") }}
-</div>
+<div class="col-sm-4 col-sm-offset-4">
+	<h3>Log in</h3>
+	<form method="POST">
+		{{ form.hidden_tag() }}
+		<div class="form-group">
+		{{ form.nickname.label }}:
+		{{ form.nickname(class="form-control") }}
+		</div>
 
-<div class="form-group">
-{{ form.password.label }}:
-{{ form.password(class="form-control") }}
+
+		<div class="form-group">
+		{{ form.password.label }}:
+		{{ form.password(class="form-control") }}
+		</div>
+		<div class="form-group">
+			<input type="submit" class="btn btn-block btn-success" value="Log In">
+		</div>
+	</form>
 </div>
-<div class="form-group">
-	<input type="submit" class="btn btn-success" value="Log In">
-</div>
-</form>
 
 {% endblock %}
