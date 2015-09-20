@@ -42,6 +42,8 @@ def login():
     """Lets the user log in to create/edit posts
     and portfolio projects.
     """
+    next_url = request.args.get('next', url_for('about.home'))
+    print next_url
     form = LoginForm()
     if form.validate_on_submit():
             nickname = form.nickname.data
@@ -49,7 +51,7 @@ def login():
             user = User.query.filter_by(nickname=nickname).first()
             if user and user.validate_pass(password):
                     login_user(user)
-                    return redirect(url_for('about.home'))
+                    return redirect(next_url)
     return render_template('admin/login.html', form=form)
 
 
