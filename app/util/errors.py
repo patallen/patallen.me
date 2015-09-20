@@ -18,6 +18,13 @@ class Unauthorized(Exception):
     pass
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    """Default error handler for 404"""
+    msg = "The resource you are looking for cannot be found."
+    return render_template('errorpages/404.html', message=msg), 404
+
+
 @app.errorhandler(NoPostsFound)
 def no_posts_found(e):
     """Custom errorhandler that renders a '404
