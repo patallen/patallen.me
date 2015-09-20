@@ -43,7 +43,6 @@ def login():
     and portfolio projects.
     """
     next_url = request.args.get('next', url_for('about.home'))
-    print next_url
     form = LoginForm()
     if form.validate_on_submit():
             nickname = form.nickname.data
